@@ -10,7 +10,7 @@ export const clerkWebhooks = async(req, res)=>{
         
 
         //verifying headers
-        const payload = wh.verify(req.body, {
+        const payload = whook.verify(req.body, {
         "svix-id": req.headers["svix-id"],
         "svix-timestamp": req.headers["svix-timestamp"],
         "svix-signature": req.headers["svix-signature"]
@@ -31,7 +31,6 @@ export const clerkWebhooks = async(req, res)=>{
                     address:[],
                     cart:[],
                     orderHistory:[]
-
                 }
                 await UserModel.create(userData);
                 return res.status(201).json({ success: true })
