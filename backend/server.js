@@ -15,7 +15,7 @@ import { clerkWebhooks } from './controllers/webHooks.js'
 
 connectdb();
 
-app.use('/webhooks', clerkWebhooks)
+app.post('/webhooks', clerkWebhooks)
  app.get('/',(req, res)=>{
     res.send("api working")
  })
