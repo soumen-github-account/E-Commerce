@@ -10,14 +10,14 @@ export const clerkWebhooks = async(req, res)=>{
         
 
         //verifying headers
-        await whook.verify(JSON.stringify(req.body),{
-            "svix-id": req.headers["svix-id"],
-            "svix-timestamp": req.headers["svix-timestamp"],
-            "svix-signature": req.headers["svix-signature"]
+        const payload = wh.verify(req.body, {
+        "svix-id": req.headers["svix-id"],
+        "svix-timestamp": req.headers["svix-timestamp"],
+        "svix-signature": req.headers["svix-signature"]
         })
 
         // getting data from request body
-        const {data, type} = req.body
+         const { data, type } = JSON.parse(req.body.toString())
 
         //switch-case statement
 
@@ -25,35 +25,33 @@ export const clerkWebhooks = async(req, res)=>{
             case 'user.created':{
                 const userData = {
                     _id: data.id,
-                    email: data.email_address[0].email_address,
+                    email: data.email_addresses[0].email_address,
                     name:data.first_name + " " + data.last_name,
                     image: data.image_url,
-                    address:[null],
-                    cart:[null],
-                    orderHistory:[null]
+                    address:[],
+                    cart:[],
+                    orderHistory:[]
 
                 }
                 await UserModel.create(userData);
-                res.json({})
-                break;
+                return res.status(201).json({ success: true })
             }
             case 'user.updated':{
                 const userData = {
-                    email: data.email_address[0].email_address,
+                    email: data.email_addresses[0].email_address,
                     name:data.first_name + " " + data.last_name,
                     image: data.image_url,
                 }
-                await User.findByIdAndUpdate(data.id, userData)
-                res.json({})
-                break;
+                await UserModel.findByIdAndUpdate(data.id, userData)
+                return res.status(200).json({ success: true })
             }
             case 'user.deleted':{
-                await User.findByIdAndDelete(data.id)
+                await UserModel.findByIdAndDelete(data.id)
                 res.json({})
-                break;
+                return res.status(200).json({ success: true })
             }
             default:
-                break;
+                return res.status(400).json({ success: false, message: "Unhandled webhook type" })
             
         }
     } catch (error) {
