@@ -1,5 +1,5 @@
 import { Webhook } from 'svix'
-import User from '../models/userModel.js'
+import UserModel from '../models/userModel.js'
 
 // APi controller function
 
@@ -33,7 +33,7 @@ export const clerkWebhooks = async(req, res)=>{
                     orderHistory:[null]
 
                 }
-                await User.create(userData);
+                await UserModel.create(userData);
                 res.json({})
                 break;
             }
