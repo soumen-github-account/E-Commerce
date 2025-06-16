@@ -33,7 +33,7 @@ const Home = () => {
             </div>
         </div>
 
-        <HomeProduct categoryId='Fashion and Dresses' />
+        <HomeProduct categoryId='Fashion' />
         <HomeProduct categoryId='Electronics Devices' />
         <HomeProduct categoryId='Appliances' />
         <MidBanner />

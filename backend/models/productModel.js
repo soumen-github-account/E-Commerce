@@ -19,4 +19,8 @@ const productSchema = new mongoose.Schema({
     details_type:{type:Array, required:true},
     publish: {type: Boolean, default:true},
     avilable: {type:Boolean, default:true},
-})
+    date: {type:Number, required:true},
+},{ minimize:false })
+
+const ProductModel = mongoose.model('product', productSchema)
+export default ProductModel

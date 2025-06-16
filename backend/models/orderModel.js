@@ -2,22 +2,22 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
     userId:{
-        type: mongoose.Schema.ObjectId,
+        type: String,
+        required:true,
         ref: 'User'
     },
-    productId: {type: String, required: true},
-    userData: {type: Object, required: true},
-    productData: {type: Object, required: true},
+    items: {type: Array, required: true},
     amount: {type: Number, required: true},
-    date: {type: Number, required: true},
+    address: {type: Object, required: true, ref:'address'},
+    date: {type: Date, required: true},
     cancelled: {type: Boolean, default: false},
-    payment: {type: Boolean, default: false},
+    paymentType: {type: String, required:true},
     isDelivered: { type: Boolean, default: false },
     deliveredAt: { type: Date },
     orderStatus: {
       type: String,
-      enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
-      default: 'Pending',
+      enum: ['Order Confirmed', 'Shipped', 'Out For Delivery', 'Delivered' ,'Cancelled'],
+      default: 'Order Confirmed',
     },
     invoice_receipt: {
         type: String,

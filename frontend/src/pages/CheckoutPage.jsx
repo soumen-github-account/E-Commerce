@@ -1,61 +1,72 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Footer from '../components/Footer'
 import './checkout.css'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../contexts/StoreContext';
 import { CiCreditCard1 } from "react-icons/ci";
 import { BiSolidOffer } from "react-icons/bi";
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useUser } from '@clerk/clerk-react';
+import axios from 'axios';
+import Model from '../components/Model';
 
 const CheckoutPage = () => {
+  const {isLoaded, isSignedIn, user} = useUser()
+  const userId = isLoaded && isSignedIn ? user.id : null;
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { cartItems , totalAmount, totalItems, rupee } = useContext(StoreContext);
+  const { backendUrl, cartItems , totalAmount, totalItems, rupee } = useContext(StoreContext);
 
   const buyNowItem = location.state?.buyNowItem;
-  const items = buyNowItem ? [buyNowItem] : cartItems;
-  const total = buyNowItem ? buyNowItem.price * buyNowItem.quantity : totalAmount;
+  const items = buyNowItem ? [buyNowItem] : cartItems?.items;
+  const total = buyNowItem ? buyNowItem.price * buyNowItem.quantity : cartItems.totalAmount;
   const platformFee = 5
   const lastTotal = total+platformFee
+  const [address, setAddress] = useState([])
+  const [openAuthModel, setopenAuthModel] = useState(false)
+  const [selectedAddress, setSelectedAddress] = useState({})
 
-  const address = [
-  {
-    "id": "addr1",
-    "fullName": "Soumen Das",
-    "mobileNumber": "9876543210",
-    "addressLine1": "22B, Lake Road",
-    "city": "Kolkata",
-    "state": "West Bengal",
-    "pincode": "700029",
-    "country": "India",
-    "addressType": "Home",
-    "isDefault": true
-  },
-  {
-    "id": "addr2",
-    "fullName": "Soumen Das",
-    "mobileNumber": "9876543210",
-    "addressLine1": "17, Sector 5",
-    "city": "Salt Lake",
-    "state": "West Bengal",
-    "pincode": "700091",
-    "country": "India",
-    "addressType": "Work",
-    "isDefault": false
+
+    const getAddress = async()=>{
+    try {
+      const {data} = await axios.get(backendUrl + '/api/user/get-address', {params:{userId}})
+      if(data.success){
+        setSelectedAddress(data.addresses[0])
+        setAddress(data.addresses)
+      } else{
+        toast.error(data.message)
+      }
+
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
-]
+  useEffect(()=>{
+    getAddress()
+    console.log(items)
+  },[userId])
+
+  const handleSelected = (item)=>{
+    setSelectedAddress(item)
+  }
+
+
+
 const nextpage = ()=>{
-  navigate('/payment-summary', { state: { total: lastTotal } });
+  navigate('/payment-summary', { state: { total: lastTotal, items:items, address:selectedAddress } });
 }
+
 
   return (
 
-      <div className="flex items-center justify-center lg:px-90 mt-10">
+      <div className="flex items-center justify-center lg:px-90 md:mt-10">
         <div className="bg-[#F2F2F2] py-2 px-3 w-full rounded-md">
           <h2 className='font-medium text-2xl text-gray-800'>Order Summary</h2>
           <hr className='my-1 text-gray-400'/>
           {
-            items.map((item, index)=>(
+            Array.isArray(items) && items.map((item, index)=>(
               <div className='my-5 cursor-pointer' key={index}>
                   <div className='flex gap-3'>
                     <div><img src={item.image} className='w-20' alt="" /></div>
@@ -63,9 +74,11 @@ const nextpage = ()=>{
                         <p className='md:text-xl text-md font-medium text-neutral-800'>{item.name}</p>
                         <p className='text-md font-medium text-neutral-800'>size: {item.unit}</p>
                         <p className='flex text-md font-medium text-neutral-800 font-sans'>qty: <p>{item.quantity}</p></p>
-                        <span className='font-sans flex gap4 items-center'><p>₹ {item.price * item.quantity}</p><p className='text-sm text-gray-500 line-through ml-3'>₹ 3345</p><p className='text-green-600 ml-3'>{item.discount}% off</p></span>
+                        <span className='font-sans flex gap4 items-center'><p>₹ {item.price * item.quantity}</p><p className='text-sm text-gray-500 line-through ml-3'>₹ 3345</p><p className='text-green-600 ml-3'>{item.discount ?? 0}% off</p></span>
+                        <p className='flex text-sm font-sans text-gray-700'>Delevery by: {item.deliveryDate}</p>
                     </div>
                     <p className='text-sm text-green-600 mt-1 ml-9 hidden md:block'>free delevary</p>
+                    
                 </div>
                 
                 <hr className='text-gray-400 mt-1' />
@@ -73,23 +86,28 @@ const nextpage = ()=>{
             ))
           }
           <div>
-            <div>
+            {
+              selectedAddress && (
+                <div>
               <p className='text-neutral-900 ml-1 mb-1 font-medium'>Deliver to :</p>
-              <div className='flex gap-3 font-sans items-center ml-1'><p>{address[0].fullName}</p><div className='px-2 py-[2px] rounded-sm bg-gray-50 border-1 border-gray-200 text-neutral-600 cursor-pointer'>{address[0].addressType}</div></div>
+              <div className='flex gap-3 font-sans items-center ml-1'><p>{selectedAddress.name}</p><div className='px-2 py-[2px] rounded-sm bg-gray-50 border-1 border-gray-200 text-neutral-600 cursor-pointer'>{selectedAddress.type}</div></div>
               <div className='flex rounded-sm bg-white py-1 px-3 shadow-sm gap-1 justify-between items-center my-2'>
                 <div className='text-neutral-700'>
                 <span className='flex gap-1'>
-                  <p>{address[0].addressLine1}</p>,
-                  <p>{address[0].city}</p>
+                  <p>{selectedAddress.city}</p>,
+                  <p>{selectedAddress.state}</p>
                 </span>
                 <span className='flex gap-1'>
-                  <p>{address[0].state}</p>,
-                  <p>{address[0].pincode}...</p>
+                  <p>{selectedAddress.ine1}</p>,
+                  <p>{selectedAddress.line2}...</p>
                 </span>
                 </div>
-                <button className='border-1 border-gray-300 rounded-sm py-1 px-2 text-emerald-600 font-medium cursor-pointer'>Change</button>
+                <button onClick={()=>setopenAuthModel(true)} className='border-1 border-gray-300 rounded-sm py-1 px-2 text-emerald-600 font-medium cursor-pointer'>Change</button>
               </div>
             </div>
+              )
+            }
+            
           
             <div className='w-full bg-[#E3F6FF] flex justify-between items-center px-2 py-[2px] text-neutral-800 text-[15px]'>
               <CiCreditCard1 />
@@ -102,7 +120,7 @@ const nextpage = ()=>{
               <div className='font-sans'>
                 <span className='flex items-center justify-between'><p className='text-gray-700'>Price ({totalItems} item)</p><p>{rupee} {total}</p></span>
                 <span className='flex items-center justify-between'><p className='text-gray-700'>Platform Fee</p><p>{rupee} 5</p></span>
-                <span className='flex items-center justify-between'><p className='text-gray-700'>Discount</p><p className='text-green-800'>{cartItems.discount} %</p></span>
+                <span className='flex items-center justify-between'><p className='text-gray-700'>Discount</p><p className='text-green-800'>{Array.isArray(items) && items.reduce((acc, item) => acc + (item.discount || 0), 0) / items.length} %</p></span>
                 <span className='flex items-center justify-between'><p className='text-gray-700'>Delevery Chargs</p><p className='text-green-800 gap-2 flex'><span className='text-gray-400 line-through'>{rupee}40</span>Free</p></span>
               </div>
               <hr className='my-2 text-gray-400 border-dotted gap-1' />
@@ -118,6 +136,46 @@ const nextpage = ()=>{
             CONTINUE
           </button>
         </div>
+
+        <Model
+        isOpen={openAuthModel}
+        onClose={()=>{
+          setopenAuthModel(false);
+        }}
+        hideHeader
+      >
+        <div className='w-full bg-gray-50 h-[80vh] flex justify-center py-5'>
+
+        <div className='bg-white py-4 px-5 shadow-md min-h-[50vh] md:w-[40vw] w-full overflow-scroll scroll-hide'>
+            <h1 className='font-bold text-xl'>Select a Address</h1>
+            {
+              address.length > 0 ?(
+                <div>
+                {address.map((item, index) => (
+                  <div key={index} onClick={()=>handleSelected(item)} className={`mt-4 cursor-pointer pl-2 text-neutral-700 relative font-sans flex flex-wrap gap-2 w-full rounded-lg py-4 ${selectedAddress._id === item._id ? 'border-2 border-blue-700' : 'border-1 border-gray-300'}`}>
+                    <p>{item.name},</p>
+                    <p>{item.mobile},</p>
+                    <p>{item.city},</p>
+                    <p>{item.state},</p>
+                    <p>{item.line1},</p>
+                    <p>{item.line2},</p>
+                  </div>
+                ))}
+                </div>
+              ):(
+                <div className='mt-4 flex w-full border-1 border-gray-300 rounded-lg items-center justify-center py-4'>
+                No address yet
+                </div>
+              )
+            }
+            
+            
+
+            <button onClick={()=>setopenAuthModel(false)} className='w-full mt-3 py-3 cursor-pointer hover:bg-white hover:text-black border-1 border-black duration-300 bg-neutral-800 text-white rounded-sm text-lg font-medium'>Select</button>
+        </div>
+
+      </div>
+      </Model>
       </div>
       
 

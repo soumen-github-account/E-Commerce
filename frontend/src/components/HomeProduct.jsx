@@ -1,24 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { IoStarSharp } from "react-icons/io5";
 import { IoStarHalfSharp } from "react-icons/io5";
 import { productData } from '../assets/data';
 import { useNavigate } from 'react-router-dom';
+import { StoreContext } from '../contexts/StoreContext';
 
 const HomeProduct = ({categoryId}) => {
+  const {allproduct} = useContext(StoreContext)
   const navigate = useNavigate()
     const [products, setProducts] = useState([]); // All products
     const [groceryProducts, setGroceryProducts] = useState([]);
 
-    // const grocery = []
-
     useEffect(()=>{
-        setProducts(productData);
-    },[productData])
+        setProducts(allproduct);
+        console.log(productData)
+    },[allproduct])
 
+    // useEffect(() => {
+    // const filtered = products.filter(product => product.categoryId === categoryId);
+    // setGroceryProducts(filtered);
+    // }, [products]);
     useEffect(() => {
-    const filtered = products.filter(product => product.categoryId === categoryId);
-    setGroceryProducts(filtered);
-    }, [products]);
+      if (Array.isArray(products)) {
+        const filtered = products.filter(product => product.categoryId === categoryId);
+        setGroceryProducts(filtered);
+      }
+    }, [products, categoryId]);
 
   return (
     <div className='mt-5 px-6'>
@@ -28,7 +35,7 @@ const HomeProduct = ({categoryId}) => {
             groceryProducts.map((item,index)=>(
                 <div className='w-40 max-w-50 bg-neutral-100 p-2' key={index} onClick={()=>navigate(`/produt-page/${item._id}`)}>
                 <div className='w-full relative'>
-                    <img src={item.image} className='w-full rounded-md' alt="" />
+                    <img src={item.image[0]} className='w-full rounded-md' alt="" />
                     <button className='border-2 border-green-600 px-3 py-0.5 rounded-lg font-bold text-green-600 absolute -bottom-2 right-1 bg-white text-md'>Add</button>
                 </div>
                 <div className='flex items-start flex-col'>

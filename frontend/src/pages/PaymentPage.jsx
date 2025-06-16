@@ -7,12 +7,21 @@ import gpay from '../assets/gpay.png'
 import PhonePeLogo from '../assets/PhonePe-Logo.png'
 import paytm from '../assets/paytm.png'
 import { BsCashCoin } from "react-icons/bs";
+import { useUser } from '@clerk/clerk-react'
+import toast from 'react-hot-toast'
+import axios from 'axios'
 
 const PaymentPage = () => {
+  const {isSignedIn, isLoaded, user} = useUser();
+  const userId = isLoaded && isSignedIn ? user.id : null;
+  const {backendUrl} = useContext(StoreContext)
   const [selected, setSelected] = useState('Online Payment');
   const {rupee} = useContext(StoreContext)
   const location = useLocation()
   const total = location.state?.total
+  const items = location.state?.items
+  const address = location.state?.address
+
   const [orderSuccess, setOrderSuccess] = useState(false);
 
   //popup
@@ -26,6 +35,29 @@ const PaymentPage = () => {
       return () => clearTimeout(timer);
     }
   }, [orderSuccess, navigate]);
+
+  const orderhandler = async()=>{
+    try {
+      const {data} = await axios.post(backendUrl + '/api/user/order-placed', {userId, items, amount:total, address, paymentType: selected})
+      if(data.success){
+        setOrderSuccess(true)
+      } else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  const onlinePayment = async()=>{
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
+
   return (
     <div className='flex w-full h-[100vh] bg-[#F1F0E9] items-center justify-center'>
       <div className={`w-[90vw] mt-4 bg-[#F1F0E9] rounded-md ${orderSuccess ? 'blur-sm':""}`}>
@@ -58,7 +90,7 @@ const PaymentPage = () => {
                 </span>
                 {selected === 'Online Payment' && (
                 <div className='w-full flex items-center justify-center my-4'>
-                  <button className='bg-blue-800 rounded-sm py-1 px-20 text-white cursor-pointer'>Pay {rupee} {total}</button>
+                  <button onClick={()=>onlinePayment()} className='bg-blue-800 rounded-sm py-1 px-20 text-white cursor-pointer'>Pay {rupee} {total}</button>
                 </div>
                 )}
             </div>
@@ -91,7 +123,7 @@ const PaymentPage = () => {
             </span>
             {selected === 'Cash On Delevery' && (
             <div className='w-full flex items-center justify-center my-4'>
-              <button className='bg-emerald-800 rounded-sm py-1 px-20 text-white cursor-pointer' onClick={() => setOrderSuccess(true)}>Place Order</button>
+              <button className='bg-emerald-800 rounded-sm py-1 px-20 text-white cursor-pointer' onClick={orderhandler}>Place Order</button>
             </div>
             )}
         </div>

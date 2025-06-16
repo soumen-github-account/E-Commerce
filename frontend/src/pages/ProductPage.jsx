@@ -9,18 +9,23 @@ import { IoStarHalfSharp, IoStarSharp } from 'react-icons/io5'
 import { BiSolidOffer } from "react-icons/bi";
 import { StoreContext } from '../contexts/StoreContext'
 import {useUser} from '@clerk/clerk-react'
+import HomeProduct from '../components/HomeProduct'
+import Footer from '../components/Footer'
 
 const ProductPage = () => {
     const {id} = useParams()
-    const { addToCart } = useContext(StoreContext);
+    const { addToCart, allproduct } = useContext(StoreContext);
     const navigate = useNavigate()
     const {user, isLoaded, isSignedIn} = useUser()
     const [productInfo, setProductInfo] = useState(null)
     const [changeButton, setChangeButton] = useState("des")
     const fecthProductInfo = () =>{
-        const productInfo = productData.find(product => product._id === id);
+        if(Array.isArray(allproduct)){
+        const productInfo = allproduct.find(product => product._id === id);
         setProductInfo(productInfo)
+        }
     }
+    const [deliveryDate, setDeliveryDate] = useState('');
 
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [quantity, setQuantity] = useState(1);
@@ -47,7 +52,7 @@ const ProductPage = () => {
     if(!isSignedIn && isLoaded){
         navigate('/signup')
     } else{
-        const item = {
+        const item = [{
       id: productInfo._id,
       name: productInfo.name,
       image: productInfo.image[0],
@@ -57,14 +62,16 @@ const ProductPage = () => {
       discount: productInfo.discount,
       quantity,
       stock: productInfo.stock
-    };
-
+    }];
+    console.log(item)
     addToCart(item);
-    navigate('/cart')
     }
     };
-    const selectedUnitIndex = selectedIndex;
 
+    const selectedUnitIndex = selectedIndex;
+    useEffect(()=>{
+        
+    },[selectedIndex])
     // handle buy now item
     const handleBuyNow = () => {
     if(!isSignedIn && isLoaded){
@@ -78,16 +85,28 @@ const ProductPage = () => {
         quantity,
         price: productInfo.price[selectedUnitIndex],
         discount: productInfo.discount,
+        deliveryDate,
     };
     navigate('/order-summary', { state: { buyNowItem: orderItem } });
     }
+    };
+    const generateDeliveryDate = () => {
+    const daysToAdd = Math.floor(Math.random() * 2) + 3; // 3 to 4 days
+    const date = new Date();
+    date.setDate(date.getDate() + daysToAdd);
+    return date.toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        weekday: 'long'
+    });
     };
 
 
     useEffect(()=>{
         fecthProductInfo()
-        
-    }, [productData, id])
+        setDeliveryDate(generateDeliveryDate());
+    }, [allproduct, id])
 
   return productInfo && (
     <div>
@@ -95,12 +114,12 @@ const ProductPage = () => {
     <div className='flex flex-col'>
         <div className='md:flex grid grid-cols-1 mt-4 md:px-20 bg-gray-50'>
             <div className='flex flex-col items-center md:w-[30vw] w-full rounded-md border-1 md:max-h-[480px] border-gray-300 bg-white p-2 mt-5'>
-                <img src={productInfo.image} className='w-full' alt="" />
+                <img src={productInfo.image[0]} className='w-full' alt="" />
                 <div className='flex w-full justify-between'>
-                    <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image} className='w-22 rounded-md' alt="" /></div>
-                    <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image} className='w-22 rounded-md' alt="" /></div>
-                    <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image} className='w-22 rounded-md' alt="" /></div>
-                    <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image} className='w-22 rounded-md' alt="" /></div>
+                    <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image[0]} className='w-22 rounded-md' alt="" /></div>
+                    <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image[1]} className='w-22 rounded-md' alt="" /></div>
+                    <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image[2]} className='w-22 rounded-md' alt="" /></div>
+                    <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image[3]} className='w-22 rounded-md' alt="" /></div>
                 </div>
             </div>
 
@@ -117,7 +136,7 @@ const ProductPage = () => {
                 </div>
                 <div className='rounded-r-lg px-3 py-1 text-md bg-emerald-500 text-white mt-2'>Top Discount of Sale</div>
                 <span className='flex py-1 px-3 items-center text-lg font-sans'><div className='text-green-600 text-[20px] gap-1 flex items-center'><FaArrowDown className='' /> {productInfo.discount}% </div><p className='text-gray-500 ml-3 text-md line-through'>₹ 2345</p><p className='ml-3 text-xl'>₹ {totalPrice}</p></span>
-                <div className='text-sm font-sans'>Delivery by15 Jun, Sunday | <span className='text-emerald-800'>Free</span></div>
+                <div className='text-sm font-sans'>Delivery by {deliveryDate}  | <span className='text-emerald-800'>Free</span></div>
                 <div className='md:flex hidden flex-col mt-2'>
                     <p className='flex gap-3 items-center'><BiSolidOffer className='text-[25px] text-green-600' /> <span className='text-md font-medium'>Offers</span></p>
                     <div className='flex gap-15'>
@@ -227,6 +246,8 @@ const ProductPage = () => {
         </div>
         </div>
     </div>
+    <HomeProduct categoryId={productInfo.categoryId} />
+    <Footer />
     </div>
   )
 }

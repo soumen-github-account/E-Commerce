@@ -2,6 +2,7 @@
 
 import shoe1 from '../assets/shoe1.jpg'
 import bag1 from '../assets/bag1.jpg'
+import kurta1 from '../assets/kurta1.webp'
 import earbud1 from '../assets/earbud1.webp'
 import laptop1 from '../assets/laptop1.webp'
 import washingmachine1 from '../assets/washingmachine1.png'
@@ -30,15 +31,15 @@ export const productData =
   },
   {
     "_id":"02",
-    "name": "Women's Handbag",
-    "image": [bag1],
-    "categoryId": "Fashion and Dresses",
+    "name": "Babli style's Dresses.",
+    "image": [kurta1],
+    "categoryId": "Fashion",
     "sub_category2": "Masalas & Spicies",
     "sub_categoryId": "womens-accessories",
-    "unit": "kg",
+    "unit": "size",
     "type":["l","xl","M","xxl"],
     "stock": 5,
-    'price': [100,200,300,400],
+    'price': [1500,2500,900,4300],
     "discount": 15,
     "description": "Stylish leather handbag.",
     "details": ["brand", "color"],

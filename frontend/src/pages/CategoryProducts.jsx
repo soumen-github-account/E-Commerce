@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { productData } from '../assets/data'
 import HeaderSearch from '../components/HeaderSearch'
 import Footer from '../components/Footer'
 import { IoStarHalfSharp, IoStarSharp } from 'react-icons/io5'
+import { StoreContext } from '../contexts/StoreContext'
 
 const CategoryProducts = () => {
+  const { allproduct } = useContext(StoreContext)
     const {category} = useParams()
     const navigate = useNavigate()
     const [productfiltered, setProductfiltered] = useState([])
       
         useEffect(() => {
-        const filtered = productData.filter(product => product.categoryId === category);
-        setProductfiltered(filtered);
-        }, [productData]);
+          if(Array.isArray(allproduct)){
+            const filtered = allproduct.filter(product => product.categoryId === category);
+            setProductfiltered(filtered);
+          }
+        }, [allproduct]);
   return (
     <div>
       <HeaderSearch />
@@ -25,7 +29,7 @@ const CategoryProducts = () => {
           productfiltered.map((item, index)=>(
             <div className='w-40 max-w-50 bg-neutral-100 p-2' key={index} onClick={()=>navigate(`/produt-page/${item._id}`)}>
               <div className='w-full relative'>
-                  <img src={item.image} className='w-full rounded-md' alt="" />
+                  <img src={item.image[0]} className='w-full rounded-md' alt="" />
                   <button className='border-2 border-green-600 px-3 py-0.5 rounded-lg font-bold text-green-600 absolute -bottom-2 right-1 bg-white text-md'>Add</button>
               </div>
               <div className='flex items-start flex-col'>

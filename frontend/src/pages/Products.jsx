@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {productData} from '../assets/data.js'
 import { useNavigate, useParams } from 'react-router-dom'
 import HeaderSearch from '../components/HeaderSearch.jsx';
 import { IoStarHalfSharp, IoStarSharp } from 'react-icons/io5';
 import Footer from '../components/Footer.jsx';
 import { MdChevronLeft } from "react-icons/md";
+import { StoreContext } from '../contexts/StoreContext.jsx';
 
 const Products = () => {
-
+  const {allproduct} = useContext(StoreContext)
   const {subCategory2} = useParams();
   const navigate = useNavigate()
   const [productfiltered, setProductfiltered] = useState([])
   
     useEffect(() => {
-    const filtered = productData.filter(product => product.sub_category2 === subCategory2);
+    if (Array.isArray(allproduct)) {
+    const filtered = allproduct.filter(product => product.sub_category2 === subCategory2);
     setProductfiltered(filtered);
-    }, [productData]);
+    }
+    }, [allproduct]);
   
 
   return (
@@ -31,10 +34,10 @@ const Products = () => {
 
         <div className='grid w-full lg:grid-cols-7 md:grid-cols-4 grid-cols-2 gap-4'>
           {
-          productData.map((item, index)=>(
+          Array.isArray(productfiltered) && productfiltered.map((item, index)=>(
             <div className='w-40 max-w-50 bg-neutral-100 p-2' key={index} onClick={()=>navigate(`/produt-page/${item._id}`)}>
               <div className='w-full relative'>
-                  <img src={item.image} className='w-full rounded-md' alt="" />
+                  <img src={item.image[0]} className='w-full rounded-md' alt="" />
                   <button className='border-2 border-green-600 px-3 py-0.5 rounded-lg font-bold text-green-600 absolute -bottom-2 right-1 bg-white text-md'>Add</button>
               </div>
               <div className='flex items-start flex-col'>

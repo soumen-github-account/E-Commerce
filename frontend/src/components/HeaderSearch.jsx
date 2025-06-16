@@ -85,13 +85,13 @@ const HeaderSearch = () => {
         </div>
         <div className=''>
         <div className='flex gap-4 md:ml-5 '>
-        <div className="flex p-1 items-center justify-between">
+        {/* <div className="flex p-1 items-center justify-between">
             <div className='relative'>
             <FaRegHeart className='text-2xl' />
             <div className='absolute rounded-full bg-emerald-600 text-white w-5 h-5 flex items-center justify-center -top-3 left-3 text-center pb-1'>0</div>
             </div>
             <p className='ml-2 hidden md:block'>Wishlist</p>
-        </div>
+        </div> */}
 
         <div onClick={()=>navigate('/cart')} className="flex p-1 items-center justify-between cursor-pointer">
             <div className='relative'>
@@ -104,8 +104,8 @@ const HeaderSearch = () => {
         </div>
         {
             user ? 
-                <div className='flex gap-2 text-sm'>
-                    <p>Hi, {user.firstName}</p>
+                <div className='flex md:gap-x-5 gap-x-2 text-sm items-center'>
+                    <button onClick={()=>navigate('/address')} className='py-1 md:px-3 px-2 rounded-sm bg-emerald-700 text-white'>My Address</button>
                     <UserButton />
                 </div>
             :
