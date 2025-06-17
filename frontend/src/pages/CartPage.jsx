@@ -3,6 +3,7 @@ import HeaderSearch from '../components/HeaderSearch'
 import { StoreContext } from '../contexts/StoreContext';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
+import Footer from '../components/Footer';
 
 const CartPage = () => {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -28,7 +29,7 @@ useEffect(()=>{
         <div className='bg-white shadow-md'>
             {
             cartItems?.items?.length === 0 ? (
-                    <p>Your cart is empty.</p>
+                    <p className='text-center my-4'>Your cart is empty.</p>
                   ):
               (
                   cartItems?.items?.map((item, index)=>(
@@ -70,6 +71,7 @@ useEffect(()=>{
             }
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

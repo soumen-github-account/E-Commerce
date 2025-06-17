@@ -11,6 +11,132 @@ import cat10 from '../assets/cat10.png'
 import cat11 from '../assets/cat11.png'
 
 
+import masala from '../assets/img1/masala.jpg'
+import ghee from '../assets/img1/ghee.jpg'
+import salt from '../assets/img1/salt.jpg'
+import dal from '../assets/img1/dal.jpg'
+import rice from '../assets/img1/rice.jpg'
+import atta from '../assets/img1/atta.jpg'
+import dryfood from '../assets/img1/dryfood.jpg'
+
+import hdrink from '../assets/img1/drink.jpg'
+import softdrink from '../assets/img1/soft drink.jpg'
+import juices from '../assets/img1/juices.jpg'
+import biscuit from '../assets/img4/biscuit.jpg'
+import cofee from '../assets/img4/coofe.jpg'
+import tea from '../assets/img4/tea.jpg'
+import chips from '../assets/img4/chips.jpg'
+import tshirt from '../assets/img4/t-shirt.jpg'
+import casualShirt from '../assets/img4/casual-shirts.jpg'
+import jeans from '../assets/img4/jeans.jpg'
+import formal from '../assets/img4/formal.jpg'
+import budgt from '../assets/img4/budget.jpg'
+import inner from '../assets/img4/inner1.jpg'
+import spShoe from '../assets/img4/spshoes.jpg'
+import sneakers from '../assets/img4/sneakers.jpg'
+import sandals from '../assets/img4/sandles.jpg'
+import casualShoe from '../assets/img4/casual shoe.jpg'
+import formalShoe from '../assets/img4/formal shoe.jpg'
+import belt from '../assets/img4/wallet.jpg'
+import flipflop from '../assets/img4/flipflop.jpg'
+import sunglass from '../assets/img4/sunglass.jpg'
+import kurta from '../assets/img4/kurta.jpg'
+import saree from '../assets/img4/sari.jpg'
+import lahanger from '../assets/img4/lahanger.jpg'
+import dress from '../assets/img4/dress.jpg'
+import topware from '../assets/img4/top.jpg'
+import jeansLadies from '../assets/img4/jeans ladies.jpg'
+import spShoeLadies from '../assets/img4/sp shoe ladies.jpg'
+import casualShoeLadies from '../assets/img4/casual shoe ladies.jpg'
+import flats from '../assets/img4/flats.jpg'
+import heels from '../assets/img4/heels.jpg'
+import flip from '../assets/img4/flip ladies.jpg'
+import tShirtBoys from '../assets/img4/t shirt boy.jpg'
+import boysShort from '../assets/img4/boys shorts.jpg'
+import boysJeans from '../assets/img4/boys jeans.jpg'
+import girlsTshirt from '../assets/img4/girls tshirt.jpg'
+import girlsFrocks from '../assets/img4/girls frocks.jpg'
+import prAc from '../assets/img4/pr ac.jpg'
+import spAc from '../assets/img4/sp ac.jpg'
+import wiAc from '../assets/img4/wi ac.jpg'
+import tonAC from '../assets/img4/1.5 ac.jpg'
+import single from '../assets/img4/single.jpg'
+import double from '../assets/img4/double.jpg'
+import side from '../assets/img3/side.jpg'
+import triple from '../assets/img3/triple.jpg'
+import multiple from '../assets/img3/multiple.jpg'
+import iphone from '../assets/img3/iphone.jpg'
+import vivo from '../assets/img3/vivo.jpg'
+import realme from '../assets/img3/realme.jpg'
+import samsung from '../assets/img3/samsung.jpg'
+import oppo from '../assets/img3/oppo.jpg'
+import poco from '../assets/img3/poco.jpg'
+import nothing from '../assets/img3/nothing.jpg'
+import infinix from '../assets/img3/infinix.jpg'
+import mi from '../assets/img3/mi.jpg'
+import pixel from '../assets/img3/pixel.jpg'
+import techno from '../assets/img3/techno.jpg'
+import prLaptop from '../assets/img3/pr laptop.jpg'
+import bstLaptop from '../assets/img3/bs laptop.jpg'
+import gmLaptop from '../assets/img3/gm laptop.jpg'
+import chromebook from '../assets/img3/chr laptop.jpg'
+import mackbook from '../assets/img3/mac laptop.jpg'
+import forHair from '../assets/img3/for hair.jpg'
+import forHim from '../assets/img3/for him.jpg'
+import unisex from '../assets/img3/unisex.jpg'
+import trimmer from '../assets/img3/trimmer.jpg'
+import hairDryer from '../assets/img3/hair drier.jpg'
+import dslr from '../assets/img3/dslr.jpg'
+import microDslr from '../assets/img3/mi dslr.jpg'
+import insCamera from '../assets/img3/ins dslr.jpg'
+import actionCamera from '../assets/img3/sport camera.jpg'
+import gimbles from '../assets/img3/gimble.jpg'
+import earbud from '../assets/img3/earbud.jpg'
+import neaskband from '../assets/img3/neackbands.jpg'
+import partySpeaker from '../assets/img3/Party Speakers.jpg'
+import soundBars from '../assets/img3/Soundbars.jpg'
+import homeTheaters from '../assets/img3/Home Theatres.jpg'
+import wrEarphone from '../assets/img3/Wired Earphones.jpg'
+import SmartBands from '../assets/img3/Smart Bands.jpg'
+import SmartRings from '../assets/img2/Smart Rings.jpg'
+import SmartTags from '../assets/img2/Smart Tags.jpg'
+import BlutoothCalling from '../assets/img2/Blutooth Calling.jpg'
+import AMOLEDDisplay from '../assets/img2/AMOLED Display.jpg'
+import LuggageBags from '../assets/img2/Luggage-Bags.jpg'
+import Backpacks from '../assets/img2/Backpacks.jpg'
+import HandBags from '../assets/img2/Hand Bags.jpg'
+import SlingBags from '../assets/img2/Sling Bags.jpg'
+import DuffleBags from '../assets/img2/Duffle Bags.jpg'
+import Rucksacks from '../assets/img2/Rucksacks.jpg'
+import SchoolBags from '../assets/img2/School Bags.jpg'
+import FaceWash from '../assets/img2/Face Wash.jpg'
+import Sunscreen from '../assets/img2/Sunscreen.jpg'
+import FaceCreams from '../assets/img2/Face Creams.jpg'
+import Serums from '../assets/img2/Serums.jpg'
+import Lotions from '../assets/img2/Lotions.jpg'
+import Scrub from '../assets/img2/Scrub.jpg'
+import Shampoo from '../assets/img2/Shampoo.jpg'
+import HairOil from '../assets/img2/Hair Oil.jpg'
+import HairSerum from '../assets/img2/Hair Serum.jpg'
+import Conditioner from '../assets/img2/Conditioner.jpg'
+import HairColor from '../assets/img2/Hair Color.jpg'
+import ShopNow from '../assets/img2/shop now.jpg'
+import FKExclusive from '../assets/img2/FK Exclusive.jpg'
+import GiftSet from '../assets/img2/Gift Set.jpg'
+import Attar from '../assets/img2/Attar.jpg'
+import Deodorants from '../assets/img2/Deodorants.jpg'
+import Rollons from '../assets/img2/Roll ons.jpg'
+import Perfumes from '../assets/img2/Perfumes.jpg'
+import JewellerySets from '../assets/img2/Jewellery Sets.jpg'
+import Earring from '../assets/img2/Earring.jpg'
+import Bracelates from '../assets/img2/Bracelates.jpg'
+import Ring from '../assets/img2/Ring.jpg'
+import Nacklaces from '../assets/img2/Nacklaces.jpg'
+import Bangles from '../assets/img2/Bangles.jpg'
+// import Rucksacks from '../assets/img2/Rucksacks.jpg'
+
+
+
 export const catagoryData = [
   {
     "img":cat1, 
@@ -21,31 +147,31 @@ export const catagoryData = [
         "name":"Staples",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":masala,
             "name":"Masalas & Spicies",
           },
           {
-            "img":cat1,
+            "img":ghee,
             "name":"Ghee & Oils",
           },
           {
-            "img":cat1,
+            "img":salt,
             "name":"Suger & Salt",
           },
           {
-            "img":cat1,
+            "img":dal,
             "name":"Dals & Pulses",
           },
           {
-            "img":cat1,
+            "img":rice,
             "name":"Rice & Rice Products",
           },
           {
-            "img":cat1,
+            "img":atta,
             "name":"Atta & Flours",
           },
           {
-            "img":cat1,
+            "img":dryfood,
             "name":"Dry Fruits",
           },
         ]
@@ -55,31 +181,31 @@ export const catagoryData = [
         "name":"Snacks & Berverages",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":hdrink,
             "name":"Health Drink Mix",
           },
           {
-            "img":cat1,
+            "img":softdrink,
             "name":"Soft Drink",
           },
           {
-            "img":cat1,
+            "img":juices,
             "name":"Juices",
           },
           {
-            "img":cat1,
+            "img":biscuit,
             "name":"Biscuits",
           },
           {
-            "img":cat1,
+            "img":cofee,
             "name":"Coffee",
           },
           {
-            "img":cat1,
+            "img":tea,
             "name":"Tea",
           },
           {
-            "img":cat1,
+            "img":chips,
             "name":"Chips Namkeen",
           },
         ]
@@ -95,27 +221,27 @@ export const catagoryData = [
         "name":"Men's Fashions",
         "subCatagory2":[
           {
-            "img":cat2,
+            "img":tshirt,
             "name":"T-Shirts & Polos",
           },
           {
-            "img":cat2,
+            "img":casualShirt,
             "name":"Casual Shirts",
           },
           {
-            "img":cat2,
+            "img":jeans,
             "name":"Jeans",
           },
           {
-            "img":cat2,
+            "img":formal,
             "name":"Formal Wears",
           },
           {
-            "img":cat1,
+            "img":budgt,
             "name":"Budget Buyes",
           },
           {
-            "img":cat1,
+            "img":inner,
             "name":"Inner wear",
           },
         ]
@@ -125,35 +251,35 @@ export const catagoryData = [
         "name":"Men's Footware",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":spShoe,
             "name":"Sport Shoes",
           },
           {
-            "img":cat1,
+            "img":sneakers,
             "name":"Sneakers",
           },
           {
-            "img":cat1,
+            "img":sandals,
             "name":"Sandals",
           },
           {
-            "img":cat1,
+            "img":casualShoe,
             "name":"Casual Shoes",
           },
           {
-            "img":cat1,
+            "img":formalShoe,
             "name":"Formal Shoes",
           },
           {
-            "img":cat1,
+            "img":belt,
             "name":"Belts & Wallets",
           },
           {
-            "img":cat1,
+            "img":flipflop,
             "name":"Flip Flops",
           },
           {
-            "img":cat1,
+            "img":sunglass,
             "name":"Sunglasses",
           },
         ]
@@ -163,27 +289,27 @@ export const catagoryData = [
         "name":"Women's Fashion",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":kurta,
             "name":"Kurtas & Sets",
           },
           {
-            "img":cat1,
+            "img":saree,
             "name":"Sarees",
           },
           {
-            "img":cat1,
+            "img":lahanger,
             "name":"Lehengas & Gowns",
           },
           {
-            "img":cat1,
+            "img":dress,
             "name":"Dresses",
           },
           {
-            "img":cat1,
+            "img":topware,
             "name":"Top Wear",
           },
           {
-            "img":cat1,
+            "img":jeansLadies,
             "name":"Jeans",
           }
         ]
@@ -193,23 +319,23 @@ export const catagoryData = [
         "name":"Women's Footware",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":spShoeLadies,
             "name":"Sport Shoes",
           },
           {
-            "img":cat1,
+            "img":casualShoeLadies,
             "name":"Casual Shoes",
           },
           {
-            "img":cat1,
+            "img":flats,
             "name":"Flats",
           },
           {
-            "img":cat1,
+            "img":heels,
             "name":"Heels",
           },
           {
-            "img":cat1,
+            "img":flip,
             "name":"Flip Flops",
           },
         ]
@@ -219,23 +345,23 @@ export const catagoryData = [
         "name":"Kids",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":tShirtBoys,
             "name":"Boy's T-Shirts",
           },
           {
-            "img":cat1,
+            "img":boysShort,
             "name":"Boy's Shorts",
           },
           {
-            "img":cat1,
+            "img":boysJeans,
             "name":"Boy's Jeans",
           },
           {
-            "img":cat1,
+            "img":girlsTshirt,
             "name":"Girl's Tshirts",
           },
           {
-            "img":cat1,
+            "img":girlsFrocks,
             "name":"Girl's Dresses & Frocks",
           },
         ]
@@ -252,23 +378,23 @@ export const catagoryData = [
         "name":"Air Conditioners",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":prAc,
             "name":"Premium ACs",
           },
           {
-            "img":cat1,
+            "img":spAc,
             "name":"Split ACs",
           },
           {
-            "img":cat1,
+            "img":wiAc,
             "name":"Window ACs",
           },
           {
-            "img":cat1,
+            "img":tonAC,
             "name":"1.5 ton ACs",
           },
           {
-            "img":cat1,
+            "img":spAc,
             "name":"Energy Efficient",
           },
         ]
@@ -278,23 +404,23 @@ export const catagoryData = [
         "name":"Refrigerators",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":single,
             "name":"Single Door",
           },
           {
-            "img":cat1,
+            "img":double,
             "name":"Double Door",
           },
           {
-            "img":cat1,
+            "img":side,
             "name":"Side by Side",
           },
           {
-            "img":cat1,
+            "img":triple,
             "name":"Triple Door",
           },
           {
-            "img":cat1,
+            "img":multiple,
             "name":"Multi Door",
           },
         ],
@@ -360,47 +486,47 @@ export const catagoryData = [
         "name":"Shope by Brand",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":iphone,
             "name":"iPhones",
           },
           {
-            "img":cat1,
+            "img":vivo,
             "name":"Vivo",
           },
           {
-            "img":cat1,
+            "img":realme,
             "name":"Realme",
           },
           {
-            "img":cat1,
+            "img":samsung,
             "name":"Samsung",
           },
           {
-            "img":cat1,
+            "img":oppo,
             "name":"Oppo",
           },
           {
-            "img":cat1,
+            "img":poco,
             "name":"Poco",
           },
           {
-            "img":cat1,
+            "img":nothing,
             "name":"Nothing",
           },
           {
-            "img":cat1,
+            "img":infinix,
             "name":"Infinix",
           },
           {
-            "img":cat1,
+            "img":mi,
             "name":"Mi",
           },
           {
-            "img":cat1,
+            "img":pixel,
             "name":"Pixel",
           },
           {
-            "img":cat1,
+            "img":techno,
             "name":"Techno",
           },
         ]
@@ -416,23 +542,23 @@ export const catagoryData = [
         "name":"Laptops",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":prLaptop,
             "name":"Premium Laptops",
           },
           {
-            "img":cat1,
+            "img":bstLaptop,
             "name":"Bestsellers",
           },
           {
-            "img":cat1,
+            "img":gmLaptop,
             "name":"Gaming Laptop",
           },
           {
-            "img":cat1,
+            "img":chromebook,
             "name":"Chromebooks",
           },
           {
-            "img":cat1,
+            "img":mackbook,
             "name":"Mackbooks",
           },
         ]
@@ -442,23 +568,23 @@ export const catagoryData = [
         "name":"Personal Apliences",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":forHair,
             "name":"For Hair",
           },
           {
-            "img":cat1,
+            "img":forHim,
             "name":"For Him",
           },
           {
-            "img":cat1,
+            "img":unisex,
             "name":"Unisex",
           },
           {
-            "img":cat1,
+            "img":trimmer,
             "name":"Trimmers",
           },
           {
-            "img":cat1,
+            "img":hairDryer,
             "name":"Hair Dryers",
           },
         ]
@@ -468,23 +594,23 @@ export const catagoryData = [
         "name":"Camera",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":dslr,
             "name":"DSLR",
           },
           {
-            "img":cat1,
+            "img":microDslr,
             "name":"Microrless",
           },
           {
-            "img":cat1,
+            "img":insCamera,
             "name":"Instant Cameras",
           },
           {
-            "img":cat1,
+            "img":actionCamera,
             "name":"Sports And Action",
           },
           {
-            "img":cat1,
+            "img":gimbles,
             "name":"Gimbals",
           },
         ]
@@ -500,27 +626,27 @@ export const catagoryData = [
         "name":"Headphones & Speakers",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":earbud,
             "name":"Earbuds",
           },
           {
-            "img":cat1,
+            "img":neaskband,
             "name":"Neaskbands",
           },
           {
-            "img":cat1,
+            "img":partySpeaker,
             "name":"Party Speakers",
           },
           {
-            "img":cat1,
+            "img":soundBars,
             "name":"Soundbars",
           },
           {
-            "img":cat1,
+            "img":homeTheaters,
             "name":"Home Theatres",
           },
           {
-            "img":cat1,
+            "img":wrEarphone,
             "name":"Wired Earphones",
           },
         ]
@@ -530,23 +656,23 @@ export const catagoryData = [
         "name":"Smart Wearables",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":SmartBands,
             "name":"Smart Bands",
           },
           {
-            "img":cat1,
+            "img":SmartRings,
             "name":"Smart Rings",
           },
           {
-            "img":cat1,
+            "img":SmartTags,
             "name":"Smart Tags",
           },
           {
-            "img":cat1,
+            "img":BlutoothCalling,
             "name":"Blutooth Calling",
           },
           {
-            "img":cat1,
+            "img":AMOLEDDisplay,
             "name":"AMOLED Display",
           },
         ]
@@ -562,31 +688,31 @@ export const catagoryData = [
         "name":"Suitcase, Bags..",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":LuggageBags,
             "name":"Luggage-Bags",
           },
           {
-            "img":cat1,
+            "img":Backpacks,
             "name":"Backpacks",
           },
           {
-            "img":cat1,
+            "img":HandBags,
             "name":"Hand Bags",
           },
           {
-            "img":cat1,
+            "img":SlingBags,
             "name":"Sling Bags",
           },
           {
-            "img":cat1,
+            "img":DuffleBags,
             "name":"Duffle Bags",
           },
           {
-            "img":cat1,
+            "img":Rucksacks,
             "name":"Rucksacks",
           },
           {
-            "img":cat1,
+            "img":SchoolBags,
             "name":"School Bags",
           },
         ]
@@ -602,27 +728,27 @@ export const catagoryData = [
         "name":"Skin Care",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":FaceWash,
             "name":"Face Wash",
           },
           {
-            "img":cat1,
+            "img":Sunscreen,
             "name":"Sunscreen",
           },
           {
-            "img":cat1,
+            "img":FaceCreams,
             "name":"Face Creams",
           },
           {
-            "img":cat1,
+            "img":Serums,
             "name":"Serums",
           },
           {
-            "img":cat1,
+            "img":Lotions,
             "name":"Lotions",
           },
           {
-            "img":cat1,
+            "img":Scrub,
             "name":"Scrub",
           },
         ]
@@ -632,27 +758,27 @@ export const catagoryData = [
         "name":"Hair Care",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":Shampoo,
             "name":"Shampoo",
           },
           {
-            "img":cat1,
+            "img":HairOil,
             "name":"Hair Oil",
           },
           {
-            "img":cat1,
+            "img":HairSerum,
             "name":"Hair Serum",
           },
           {
-            "img":cat1,
+            "img":Conditioner,
             "name":"Conditioner",
           },
           {
-            "img":cat1,
+            "img":HairColor,
             "name":"Hair Color",
           },
           {
-            "img":cat1,
+            "img":ShopNow,
             "name":"Shop Now",
           },
         ]
@@ -662,69 +788,69 @@ export const catagoryData = [
         "name":"Fragrance",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":FKExclusive,
             "name":"FK Exclusive",
           },
           {
-            "img":cat1,
+            "img":GiftSet,
             "name":"Gift Set",
           },
           {
-            "img":cat1,
+            "img":Attar,
             "name":"Attar",
           },
           {
-            "img":cat1,
+            "img":Deodorants,
             "name":"Deodorants",
           },
           {
-            "img":cat1,
+            "img":Rollons,
             "name":"Roll ons",
           },
           {
-            "img":cat1,
+            "img":Perfumes,
             "name":"Perfumes",
           },
         ]
       },
     ]
   },
-  {
-    "img":cat9,
-    "name":"Welness",
-    "subCategory":[
-      {
-        "img":cat1,
-        "name":"Skin Care",
-        "subCatagory2":[
-          {
-            "img":cat1,
-            "name":"Face Wash",
-          },
-          {
-            "img":cat1,
-            "name":"Sunscreen",
-          },
-          {
-            "img":cat1,
-            "name":"Face Creams",
-          },
-          {
-            "img":cat1,
-            "name":"Serums",
-          },
-          {
-            "img":cat1,
-            "name":"Lotions",
-          },
-          {
-            "img":cat1,
-            "name":"Scrub",
-          },
-        ]
-      },
-    ],
-  },
+  // {
+  //   "img":cat9,
+  //   "name":"Welness",
+  //   "subCategory":[
+  //     {
+  //       "img":cat1,
+  //       "name":"Skin Care",
+  //       "subCatagory2":[
+  //         {
+  //           "img":cat1,
+  //           "name":"Face Wash",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Sunscreen",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Face Creams",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Serums",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Lotions",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Scrub",
+  //         },
+  //       ]
+  //     },
+  //   ],
+  // },
   {
     "img":cat10,
     "name":"Jewellery",
@@ -734,27 +860,27 @@ export const catagoryData = [
         "name":"Jewellerys",
         "subCatagory2":[
           {
-            "img":cat1,
+            "img":JewellerySets,
             "name":"Jewellery Sets",
           },
           {
-            "img":cat1,
+            "img":Earring,
             "name":"Earring",
           },
           {
-            "img":cat1,
+            "img":Bracelates,
             "name":"Bracelates",
           },
           {
-            "img":cat1,
+            "img":Ring,
             "name":"Ring",
           },
           {
-            "img":cat1,
+            "img":Nacklaces,
             "name":"Nacklaces",
           },
           {
-            "img":cat1,
+            "img":Bangles,
             "name":"Bangles",
           },
         ]
@@ -762,40 +888,40 @@ export const catagoryData = [
     ]
     
   },
-  {
-    "img":cat11, 
-    "name": "Toys, Baby",
-    "subCategory":[
-      {
-        "img":cat1,
-        "name":"Skin Care",
-        "subCatagory2":[
-          {
-            "img":cat1,
-            "name":"Face Wash",
-          },
-          {
-            "img":cat1,
-            "name":"Sunscreen",
-          },
-          {
-            "img":cat1,
-            "name":"Face Creams",
-          },
-          {
-            "img":cat1,
-            "name":"Serums",
-          },
-          {
-            "img":cat1,
-            "name":"Lotions",
-          },
-          {
-            "img":cat1,
-            "name":"Scrub",
-          },
-        ]
-      },
-    ]
-  },
+  // {
+  //   "img":cat11, 
+  //   "name": "Toys, Baby",
+  //   "subCategory":[
+  //     {
+  //       "img":cat1,
+  //       "name":"Skin Care",
+  //       "subCatagory2":[
+  //         {
+  //           "img":cat1,
+  //           "name":"Face Wash",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Sunscreen",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Face Creams",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Serums",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Lotions",
+  //         },
+  //         {
+  //           "img":cat1,
+  //           "name":"Scrub",
+  //         },
+  //       ]
+  //     },
+  //   ]
+  // },
 ]

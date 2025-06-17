@@ -38,7 +38,7 @@ const OrderModel = ({orders, index}) => {
   }
 ];
 
-const currentStatus = 'Out For Delivery' //orders[index].orderStatus;
+const currentStatus = orders[index].orderStatus;
 const getStatusIndex = () => {
     return steps.findIndex(step => step.title === currentStatus);
   };
@@ -64,7 +64,7 @@ const getStatusIndex = () => {
     //         </div>
     //     </div>
 
-    <div className="max-w-xl mx-auto p-6 font-sans relative">
+    <div className="max-w-xl mx-auto p-6 font-sans relative my-3">
       <div className="absolute left-4 top-5 bottom-0 w-1 bg-gray-300 rounded-full z-0" />
       <div className="absolute left-4 top-5 w-1 bg-green-500 z-10 rounded-full"
            style={{ height: `${(currentIndex / (steps.length - 1)) * 100}%` }} />

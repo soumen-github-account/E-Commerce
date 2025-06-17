@@ -61,7 +61,7 @@ const nextpage = ()=>{
 
   return (
 
-      <div className="flex items-center justify-center lg:px-90 md:mt-10">
+      <div className="flex flex-col items-center justify-center lg:px-90 md:mt-10">
         <div className="bg-[#F2F2F2] py-2 px-3 w-full rounded-md">
           <h2 className='font-medium text-2xl text-gray-800'>Order Summary</h2>
           <hr className='my-1 text-gray-400'/>
@@ -176,6 +176,7 @@ const nextpage = ()=>{
 
       </div>
       </Model>
+      <Footer />
       </div>
       
 
