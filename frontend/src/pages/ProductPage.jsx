@@ -11,6 +11,7 @@ import { StoreContext } from '../contexts/StoreContext'
 import {useUser} from '@clerk/clerk-react'
 import HomeProduct from '../components/HomeProduct'
 import Footer from '../components/Footer'
+import { useSwipeable } from 'react-swipeable';
 
 const ProductPage = () => {
     const {id} = useParams()
@@ -102,6 +103,25 @@ const ProductPage = () => {
     });
     };
 
+    // 👇 Inside your component, add these two states
+const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => {
+            setCurrentImageIndex((prev) =>
+            prev < productInfo.image.length - 1 ? prev + 1 : 0
+            );
+        },
+        onSwipedRight: () => {
+            setCurrentImageIndex((prev) =>
+            prev > 0 ? prev - 1 : productInfo.image.length - 1
+            );
+        },
+        preventScrollOnSwipe: true,
+        trackTouch: true,
+        trackMouse: false,
+    });
+
 
     useEffect(()=>{
         fecthProductInfo()
@@ -113,7 +133,7 @@ const ProductPage = () => {
       <Header />
     <div className='flex flex-col'>
         <div className='md:flex grid grid-cols-1 mt-4 md:px-20 bg-gray-50'>
-            <div className='flex flex-col items-center md:w-[30vw] w-full rounded-md border-1 md:max-h-[480px] border-gray-300 bg-white p-2 mt-5'>
+            {/* <div className='flex flex-col items-center md:w-[30vw] w-full rounded-md border-1 md:max-h-[480px] border-gray-300 bg-white p-2 mt-5'>
                 <img src={productInfo.image[0]} className='w-full' alt="" />
                 <div className='flex w-full justify-between'>
                     <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image[0]} className='w-22 rounded-md' alt="" /></div>
@@ -121,7 +141,34 @@ const ProductPage = () => {
                     <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image[2]} className='w-22 rounded-md' alt="" /></div>
                     <div className='my-2 p-1 border-2 border-gray-300 rounded-md'><img src={productInfo.image[3]} className='w-22 rounded-md' alt="" /></div>
                 </div>
+            </div> */}
+
+            <div className='flex flex-col items-center md:w-[30vw] w-full rounded-md border border-gray-300 bg-white p-2 mt-5'>
+            <div {...handlers} className='w-full rounded-md overflow-hidden'>
+                <img
+                src={productInfo.image[currentImageIndex]}
+                className='w-full h-[300px] object-contain transition-all duration-300 ease-in-out'
+                alt='Main'
+                />
             </div>
+
+        <div className='flex w-full justify-between gap-2 mt-2'>
+        {productInfo.image.map((img, index) => (
+        <div
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
+            className={`p-1 border-2 rounded-md cursor-pointer ${
+            currentImageIndex === index
+                ? 'border-emerald-600'
+                : 'border-gray-300'
+            }`}
+        >
+            <img src={img} className='w-16 h-16 object-contain rounded' alt='' />
+        </div>
+        ))}
+        </div>
+        </div>
+
 
             <div className='flex flex-col items-start p-5'>
                 <p className='text-2xl font-bold'>{productInfo.name}</p>

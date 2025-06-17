@@ -33,7 +33,7 @@ const CategoryProducts = () => {
                   <button className='border-2 border-green-600 px-3 py-0.5 rounded-lg font-bold text-green-600 absolute -bottom-2 right-1 bg-white text-md'>Add</button>
               </div>
               <div className='flex items-start flex-col'>
-                  <p className='font-bold text-gray-900 mt-1'>{item.name}</p>
+                  <p className='font-bold text-gray-900 mt-1 line-clamp-2'>{item.name}</p>
                   <div className='flex gap-1 text-yellow-500'>
                   {
                       [1,2,3,4].map((item,index)=>(
