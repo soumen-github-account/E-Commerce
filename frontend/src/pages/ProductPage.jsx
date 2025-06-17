@@ -191,7 +191,7 @@ const ProductPage = () => {
                     <button className='text-[25px] cursor-pointer text-emerald-800'><FaRegHeart /></button>
                 </div>
                 <div>
-                    <h1>Description</h1>
+                    <h1 className='text-lg font-medium my-2 underline'>Description</h1>
                     <p>{productInfo.description}</p>
                 </div>
             </div>

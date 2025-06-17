@@ -32,10 +32,13 @@ const Home = () => {
                 }
             </div>
         </div>
+        <HomeProduct categoryId='Grocery' />
 
         <HomeProduct categoryId='Fashion' />
-        <HomeProduct categoryId='Electronics Devices' />
+        <HomeProduct categoryId='Jewellery' />
         <HomeProduct categoryId='Appliances' />
+        <HomeProduct categoryId='Mobiles' />
+        
         <MidBanner />
         
         <Banner />

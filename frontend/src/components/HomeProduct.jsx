@@ -30,10 +30,10 @@ const HomeProduct = ({categoryId}) => {
   return (
     <div className='mt-5 px-6'>
       <h1 className='font-medium text-xl'>{categoryId}</h1>
-      <div className='flex w-full gap-5 overflow-scroll scroll-hide mt-2 py-2'>
+      <div className='flex w-[95vw] gap-5 overflow-scroll scroll-hide mt-2 py-2'>
         {
             groceryProducts.map((item,index)=>(
-                <div className='w-40 max-w-50 bg-neutral-100 p-2' key={index} onClick={()=>navigate(`/produt-page/${item._id}`)}>
+                <div className='min-w-40 max-w-10 bg-neutral-100 p-2' key={index} onClick={()=>navigate(`/produt-page/${item._id}`)}>
                 <div className='w-full relative'>
                     <img src={item.image[0]} className='w-full rounded-md' alt="" />
                     <button className='border-2 border-green-600 px-3 py-0.5 rounded-lg font-bold text-green-600 absolute -bottom-2 right-1 bg-white text-md'>Add</button>
