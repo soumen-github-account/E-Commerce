@@ -43,6 +43,9 @@ const CheckoutPage = () => {
       toast.error(error.message)
     }
   }
+
+
+
   useEffect(()=>{
     getAddress()
     console.log(items)
@@ -55,7 +58,11 @@ const CheckoutPage = () => {
 
 
 const nextpage = ()=>{
-  navigate('/payment-summary', { state: { total: lastTotal, items:items, address:selectedAddress } });
+  if(address.length === 0){
+    toast.error("Please add Address")
+  } else{
+    navigate('/payment-summary', { state: { total: lastTotal, items:items, address:selectedAddress } });
+  }
 }
 
 
@@ -107,6 +114,16 @@ const nextpage = ()=>{
             </div>
               )
             }
+
+            {
+              address.length === 0 ?(
+                <div className='w-full flex items-center justify-center mb-2'>
+                  <button onClick={()=>navigate('/address')} className='py-2 bg-gray-800 rounded-md text-white px-6'>+ Add Address</button>
+                </div>
+              ):(
+                <div></div>
+              )
+            }
             
           
             <div className='w-full bg-[#E3F6FF] flex justify-between items-center px-2 py-[2px] text-neutral-800 text-[15px]'>
@@ -132,7 +149,9 @@ const nextpage = ()=>{
             </div>
 
           </div>
-          <button onClick={nextpage} className='bg-emerald-600 text-white px-4 py-2 cursor-pointer font-sans'>
+
+          
+          <button onClick={()=>{nextpage();scrollTo(0,0)}} className='bg-emerald-600 text-white px-4 py-2 cursor-pointer font-sans'>
             CONTINUE
           </button>
         </div>

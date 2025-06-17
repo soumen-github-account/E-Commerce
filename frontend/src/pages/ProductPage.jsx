@@ -143,30 +143,30 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
                 </div>
             </div> */}
 
-            <div className='flex flex-col items-center md:w-[30vw] w-full rounded-md border border-gray-300 bg-white p-2 mt-5'>
+        <div className='flex flex-col items-center md:w-[80vw] w-full md:max-h-[480px] rounded-md border border-gray-300 bg-white p-2 mt-5'>
             <div {...handlers} className='w-full rounded-md overflow-hidden'>
                 <img
                 src={productInfo.image[currentImageIndex]}
-                className='w-full h-[300px] object-contain transition-all duration-300 ease-in-out'
+                className='w-full h-full object-contain transition-all duration-300 ease-in-out'
                 alt='Main'
                 />
             </div>
 
-        <div className='flex w-full justify-between gap-2 mt-2'>
-        {productInfo.image.map((img, index) => (
-        <div
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`p-1 border-2 rounded-md cursor-pointer ${
-            currentImageIndex === index
-                ? 'border-emerald-600'
-                : 'border-gray-300'
-            }`}
-        >
-            <img src={img} className='w-16 h-16 object-contain rounded' alt='' />
-        </div>
-        ))}
-        </div>
+            <div className='flex w-full justify-start gap-2 mt-2'>
+            {productInfo.image.map((img, index) => (
+            <div
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                className={`p-1 border-2 rounded-md cursor-pointer ${
+                currentImageIndex === index
+                    ? 'border-emerald-600'
+                    : 'border-gray-300'
+                }`}
+            >
+                <img src={img} className='w-16 h-16 object-contain rounded' alt='' />
+            </div>
+            ))}
+            </div>
         </div>
 
 
@@ -233,8 +233,8 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
                     <button onClick={()=>handleQuantityChange('inc')} className='flex items-center w-10 h-10 justify-center rounded-full text-[25px] font-bold bg-emerald-600 text-white cursor-pointer'>+</button>
                 </div>
                 <div className='flex mt-3 gap-4'>
-                    <button onClick={()=> handleAddToCart()} className='md:px-7 md:py-2 px-4 py-2 text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'>Add to cart</button>
-                    <button onClick={handleBuyNow} className='md:px-7 md:py-2 px-4 py-2 text-emerald-600 bg-emerald-50 border-2 border-emerald-800 rounded-full cursor-pointer md:text-[17px] text-sm font-bold'>Buy Now</button>
+                    <button onClick={()=> {handleAddToCart();scrollTo(0,0)}} className='md:px-7 md:py-2 px-4 py-2 text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'>Add to cart</button>
+                    <button onClick={()=>{handleBuyNow();scrollTo(0,0)}} className='md:px-7 md:py-2 px-4 py-2 text-emerald-600 bg-emerald-50 border-2 border-emerald-800 rounded-full cursor-pointer md:text-[17px] text-sm font-bold'>Buy Now</button>
                     <button className='text-[25px] cursor-pointer text-emerald-800'><FaRegHeart /></button>
                 </div>
                 <div>
