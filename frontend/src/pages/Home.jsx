@@ -9,6 +9,7 @@ import Banner from '../components/Banner'
 import Banner2 from '../components/Banner2'
 import { catagoryData } from '../assets/categoryData'
 import { useNavigate } from 'react-router-dom'
+import { IoSearch } from "react-icons/io5";
 
 const Home = () => {
     const navigate = useNavigate()
@@ -16,6 +17,13 @@ const Home = () => {
     <>
         <Header />
         <HeaderBanner />
+            <div onClick={()=>navigate('/search-page')} className='w-[85vw] flex items-center mt-3 bg-white shadow-sm border-1 border-gray-300 py-1 px-4 rounded-md ml-5 cursor-pointer md:hidden'>
+                <div className='pr-7 border-r-1 w-[32px] py-2 border-r-gray-400'>
+                    <IoSearch className='text-gray-500 text-lg' />
+                </div>
+                <p className='ml-3 text-gray-500'>Search here...</p>
+            </div>
+
 
         <div className='px-7 mt-5'>
             <h1 className='text-2xl font-bold'>Featured Categories</h1>

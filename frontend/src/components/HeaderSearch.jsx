@@ -56,7 +56,7 @@ const HeaderSearch = () => {
         </div>
 
         {/* header search */}
-        <div className='border-1 border-gray-300 py-2 rounded-sm hidden md:block'>
+        <div onClick={()=>navigate('/search-page')} className='border-1 border-gray-300 py-2 rounded-sm hidden md:block cursor-pointer'>
             <div className='flex px-2'>
                 <div className='flex border-r-1 border-r-emerald-400 items-center'>
                     <p>All Categories</p>
@@ -68,6 +68,14 @@ const HeaderSearch = () => {
                 
             </div>
         </div>
+        {/* <div className='hidden md:block'>
+            <div onClick={()=>navigate('/search-page')} className='w-[85vw] flex items-center mt-3 bg-white shadow-sm border-1 border-gray-300 py-1 px-4 rounded-md ml-5 cursor-pointer'>
+                <div className='pr-7 border-r-1 w-[32px] py-2 border-r-gray-400'>
+                    <IoSearch className='text-gray-500 text-lg' />
+                </div>
+                <p className='ml-3 text-gray-500'>Search here...</p>
+            </div>
+        </div> */}
         
         
         <div className="w-40 p-1 border-2 border-gray-300 rounded-sm text-green-800 hidden md:block">

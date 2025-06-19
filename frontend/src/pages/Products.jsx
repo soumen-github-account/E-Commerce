@@ -8,33 +8,131 @@ import { MdChevronLeft } from "react-icons/md";
 import { StoreContext } from '../contexts/StoreContext.jsx';
 
 const Products = () => {
-  const {allproduct} = useContext(StoreContext)
-  const {subCategory2} = useParams();
+  const { allproduct } = useContext(StoreContext)
+  const { subCategory2 } = useParams()
   const navigate = useNavigate()
+
   const [productfiltered, setProductfiltered] = useState([])
-  
-    useEffect(() => {
+  const [sizeFilter, setSizeFilter] = useState('')
+  const [priceFilter, setPriceFilter] = useState('')
+  const [brandFilter, setBrandFilter] = useState('')
+  const [unitFilter, setUnitFilter] = useState('')
+
+  // 1. Filter products by subCategory2
+  useEffect(() => {
     if (Array.isArray(allproduct)) {
-    const filtered = allproduct.filter(product => product.sub_category2 === subCategory2);
-    setProductfiltered(filtered);
+      const filtered = allproduct.filter(
+        product => product.sub_category2 === subCategory2
+      )
+      setProductfiltered(filtered)
     }
-    }, [allproduct]);
-  
+  }, [allproduct, subCategory2])
+
+  // 2. Generate Sizes (with custom sort)
+  const standardSizeOrder = [
+    'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL',
+    '28', '30', '32', '34', '36', '38', '40', '42', '44'
+  ]
+  const sizes = productfiltered.length
+  ? [...new Set(
+      productfiltered.flatMap(p =>
+        Array.isArray(p.type) ? p.type : []
+      )
+    )].sort((a, b) => {
+      const indexA = standardSizeOrder.indexOf(a)
+      const indexB = standardSizeOrder.indexOf(b)
+      return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB)
+    })
+  : []
+
+
+
+
+  // 3. Generate Brands
+  // const brands = [...new Set(productfiltered.map(p => p.brand).filter(Boolean))].sort()
+
+  // 4. Generate Price Ranges
+  const allPrices = productfiltered.map(p => p.price?.[0]).filter(Boolean)
+  let priceRanges = []
+  if (allPrices.length > 0) {
+    const min = Math.min(...allPrices)
+    const max = Math.max(...allPrices)
+    const step = 500
+
+    for (let i = Math.floor(min / step) * step; i <= max; i += step) {
+      priceRanges.push(`${i}-${i + step - 1}`)
+    }
+  }
+
+  // 5. Final filtered product list
+  const filteredProducts = productfiltered.filter(product => {
+    const sizeMatch = !sizeFilter || (Array.isArray(product.type) && product.type.includes(sizeFilter));
+    // const brandMatch = !brandFilter || product.brand === brandFilter
+    const priceMatch = (() => {
+      if (!priceFilter) return true
+      const [min, max] = priceFilter.split('-').map(Number)
+      return product.price[0] >= min && product.price[0] <= max
+    })()
+    return sizeMatch && priceMatch
+  })
+
 
   return (
     <div>
       <HeaderSearch />
-      <div className='px-2 flex ml-5 my-3 gap-4 items-center'>
-        <p className='text-lg font-medium'>Filter <span className='text-neutral-700 text-md'>Product :</span></p>
-        <span className='rounded-md flex items-center justify-between px-3 py-1 text-sm bg-gray-100 gap-1'><p>Size</p><MdChevronLeft className='-rotate-90' /></span>
-        <span className='rounded-md flex items-center justify-between px-3 py-1 text-sm bg-gray-100 gap-1'><p>Price</p><MdChevronLeft className='-rotate-90' /></span>
-        <span className='rounded-md flex items-center justify-between px-3 py-1 text-sm bg-gray-100 gap-1'><p>Brand</p><MdChevronLeft className='-rotate-90' /></span>
+
+    <div className='px-2 flex ml-5 my-3 gap-4 items-center flex-wrap'>
+        <p className='md:text-lg font-medium text-[14px]'>
+          Filter <span className='text-neutral-700 text-md'>Product :</span>
+        </p>
+
+        {/* Size Filter */}
+        {
+          Array.isArray(filteredProducts) && 
+          <select value={sizeFilter} onChange={(e) => setSizeFilter(e.target.value)} className='rounded-md px-3 py-1 text-sm bg-gray-100'>
+          <option value=''>{filteredProducts?.[0]?.unit}</option>
+          {sizes.map((s, i) => (
+            <option key={i} value={s}>{s}</option>
+          ))}
+        </select>
+        }
+        
+
+        {/* Price Filter */}
+        <select value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)} className='rounded-md px-3 py-1 text-sm bg-gray-100'>
+          <option value=''>Price</option>
+          {priceRanges.map((range, i) => (
+            <option key={i} value={range}>{range.replace('-', ' - ')}</option>
+          ))}
+        </select>
+
+        {/* Brand Filter */}
+        {/* <select value={brandFilter} onChange={(e) => setBrandFilter(e.target.value)} className='rounded-md px-3 py-1 text-sm bg-gray-100'>
+          <option value=''>Brand</option>
+          {brands.map((b, i) => (
+            <option key={i} value={b}>{b}</option>
+          ))}
+        </select> */}
+
+        {/* Clear Filters */}
+        <button
+          onClick={() => {
+            setSizeFilter('')
+            setPriceFilter('')
+            setBrandFilter('')
+          }}
+          className='px-3 py-1 bg-red-100 text-red-600 rounded-md text-sm'
+        >
+          Clear Filters
+        </button>
       </div>
+
+
       <div className='px-6 h-[86vh] overflow-scroll scroll-hide'>
 
         <div className='grid w-full lg:grid-cols-7 md:grid-cols-4 grid-cols-2 gap-4'>
           {
-          Array.isArray(productfiltered) && productfiltered.map((item, index)=>(
+          Array.isArray(filteredProducts) && filteredProducts.map((item, index) =>(
             <div className='w-40 max-w-50 bg-neutral-100 p-2' key={index} onClick={()=>navigate(`/produt-page/${item._id}`)}>
               <div className='w-full relative'>
                   <img src={item.image[0]} className='w-full rounded-md' alt="" />
