@@ -57,7 +57,7 @@ const Products = () => {
   if (allPrices.length > 0) {
     const min = Math.min(...allPrices)
     const max = Math.max(...allPrices)
-    const step = 500
+    const step = 100
 
     for (let i = Math.floor(min / step) * step; i <= max; i += step) {
       priceRanges.push(`${i}-${i + step - 1}`)
@@ -119,7 +119,6 @@ const Products = () => {
           onClick={() => {
             setSizeFilter('')
             setPriceFilter('')
-            setBrandFilter('')
           }}
           className='px-3 py-1 bg-red-100 text-red-600 rounded-md text-sm'
         >

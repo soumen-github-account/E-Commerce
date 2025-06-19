@@ -15,6 +15,10 @@ import EditAddress from './components/EditAddress.jsx'
 import Navbar from './components/Navbar.jsx'
 import OrderPage from './pages/OrderPage.jsx'
 import SearchPage from './pages/SearchPage.jsx'
+import Privacy from './conditionPage/Privacy.jsx'
+import Condition from './conditionPage/Condition.jsx'
+import Shipping from './conditionPage/Shipping.jsx'
+import Refund from './conditionPage/Refund.jsx'
 // const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 // if (!PUBLISHABLE_KEY) {
 //   throw new Error('Missing Publishable Key')
@@ -38,6 +42,11 @@ const App = () => {
         <Route path='/edit-address/:id' element={<EditAddress />} />
         <Route path='/order' element={<OrderPage />} />
         <Route path='/search-page' element={<SearchPage />} />
+
+        <Route path='/privacy-policy' element={<Privacy />} />
+        <Route path='/condition' element={<Condition />} />
+        <Route path='/shipping' element={<Shipping />} />
+        <Route path='/refund' element={<Refund />} />
       </Routes>
       <Toaster 
       toastOptions={{
