@@ -139,7 +139,7 @@ import Bangles from '../assets/img2/Bangles.jpg'
 
 export const catagoryData = [
   {
-    "img":cat1, 
+    "img":cat1,
     "name":"Grocery",
     "subCategory":[
       {

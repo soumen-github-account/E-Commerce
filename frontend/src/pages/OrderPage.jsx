@@ -87,7 +87,7 @@ const OrderPage = () => {
                                             <div className='md:flex items-center justify-between my-2' key={subIndex}>
                                                 <div><img src={subItem.image} className='w-22' alt="" /></div>
                                                 <div>
-                                                    <p className='text-lg font-medium'>{subItem.name}</p>
+                                                    <p className='text-lg font-medium line-clamp-2'>{subItem.name}</p>
                                                     <p>Order Date: {new Date(item.date).toLocaleDateString('en-IN', {
                                                             day: '2-digit',
                                                             month: 'long',

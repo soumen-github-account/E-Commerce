@@ -12,12 +12,18 @@ import {useUser} from '@clerk/clerk-react'
 import HomeProduct from '../components/HomeProduct'
 import Footer from '../components/Footer'
 import { useSwipeable } from 'react-swipeable';
+import { IoMdStar, IoMdStarOutline } from "react-icons/io";
+import { ImSpinner9 } from "react-icons/im";
+import toast from 'react-hot-toast'
+import axios from 'axios'
 
 const ProductPage = () => {
     const {id} = useParams()
-    const { addToCart, allproduct } = useContext(StoreContext);
+    const { addToCart, allproduct, loading, setLoading } = useContext(StoreContext);
     const navigate = useNavigate()
     const {user, isLoaded, isSignedIn} = useUser()
+    const userId = isLoaded && isSignedIn ? user.id : null;
+
     const [productInfo, setProductInfo] = useState(null)
     const [changeButton, setChangeButton] = useState("des")
     const fecthProductInfo = () =>{
@@ -128,6 +134,54 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
         setDeliveryDate(generateDeliveryDate());
     }, [allproduct, id])
 
+
+    const [rating, setRating] = useState(1)
+    const [comment, setComment] = useState('')
+
+    function calculateNewAverage(reviews) {
+    if (reviews.length === 0) return 0;
+    const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+    return parseFloat((total / reviews.length).toFixed(1));
+    }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+        setLoading(true)
+      const {data} = await axios.post(`http://localhost:8000/api/product/review-add/${id}`,{userId, rating, comment} )
+        if(data.success){
+            toast.success(data.message)
+            // Create the review object you just added (manually)
+            const newReview = {
+                user: userId,
+                name: user.fullName,
+                userImage: user?.imageUrl,
+                rating,
+                comment,
+                createdAt: new Date().toISOString(),
+            };
+
+            setProductInfo(prev => {
+                const updatedReviews = [...prev.reviews, newReview];
+                return {
+                ...prev,
+                reviews: updatedReviews,
+                numReviews: updatedReviews.length,
+                averageRating: calculateNewAverage(updatedReviews),
+                };
+            });
+            setRating(1)
+            setComment('')
+            setLoading(false)
+        } else{
+            toast.error(data.message)
+        }
+
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
   return productInfo && (
     <div>
       <Header />
@@ -233,9 +287,19 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
                     <button onClick={()=>handleQuantityChange('inc')} className='flex items-center w-10 h-10 justify-center rounded-full text-[25px] font-bold bg-emerald-600 text-white cursor-pointer'>+</button>
                 </div>
                 <div className='flex mt-3 gap-4'>
-                    <button onClick={()=> {handleAddToCart();scrollTo(0,0)}} className='md:px-7 md:py-2 px-4 py-2 text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'>Add to cart</button>
-                    <button onClick={()=>{handleBuyNow();scrollTo(0,0)}} className='md:px-7 md:py-2 px-4 py-2 text-emerald-600 bg-emerald-50 border-2 border-emerald-800 rounded-full cursor-pointer md:text-[17px] text-sm font-bold'>Buy Now</button>
-                    <button className='text-[25px] cursor-pointer text-emerald-800'><FaRegHeart /></button>
+                    {
+                        loading ?
+                        <button className='md:px-7 md:py-2 px-4 py-2 flex items-center text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'><ImSpinner9 className='text-md animate-spin' />Please Wait...</button>
+                        :
+                        <button onClick={handleAddToCart} className='md:px-7 md:py-2 px-4 py-2 text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'>Add to cart</button>
+                    }
+                    {
+                        loading ? 
+                        <button className='md:px-7 md:py-2 px-4 py-2 flex items-center text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'><ImSpinner9 className='text-md animate-spin' />Please Wait...</button>
+                        :
+                        <button onClick={()=>{handleBuyNow();scrollTo(0,0)}} className='md:px-7 md:py-2 px-4 py-2 text-emerald-600 bg-emerald-50 border-2 border-emerald-800 rounded-full cursor-pointer md:text-[17px] text-sm font-bold'>Buy Now</button>
+                    }
+                    {/* <button className='text-[25px] cursor-pointer text-emerald-800'><FaRegHeart /></button> */}
                 </div>
                 <div>
                     <h1 className='text-lg font-medium my-2 underline'>Description</h1>
@@ -282,11 +346,67 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
                 changeButton === 'review' && 
                 <div className='mt-3'>
                     <p className='font-medium text-2xl'>Customar questions and answers</p>
-                    <div className='mt-3 flex flex-col md:w-[50vw] w-ull'>
-                        <label htmlFor="" className='text-gray-700 font-medium'>Add a Review</label>
-                        <textarea placeholder='Write your review..' className='outline-none border-1 w-full border-gray-400 rounded-md px-3 py-3 mt-4'/>
+                    <div className='w-full py-2 font-sans'>
+                
+                    {
+                        productInfo.reviews && productInfo.reviews.length > 0 ? (
+                            productInfo.reviews?.map((item, index)=>(
+                            <div key={index} className='flex items-center justify-between gap-1 rounded-md border-1 px-3 py-2 border-gray-400 flex-wrap'>
+                            <div className='flex flex-col items-center gap-2 '>
+                                <img src={item.userImage} className='w-10 md:w-17 rounded-full' alt="" />
+                                <p className='text-emerald-800 font-medium text-sm md:text-[19px]'>{item.name}</p>
+                            </div>
+                            <div className='text-sm flex flex-col items-start gap-y-1 min-w-30 max-w-80'>
+                                <p className='text-gray-600 text-[14px] font-medium'>{new Date(item.createdAt).toLocaleDateString('en-IN', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric'
+                                })}</p>
+                                <p className='text-gray-700 text-md'>{item.comment}</p>
+                            </div>
+                            <div>
+                                <div className="flex items-center gap-1 text-yellow-500 mb-1 md:text-[30px] text-[20px]">
+                                {[...Array(5)].map((_, i) =>
+                                    i < item.rating ? <IoMdStar key={i} /> : <IoMdStarOutline key={i} />
+                                )}
+                                <span className="text-sm text-gray-700 ml-2">({item.rating}/5)</span>
+                                </div>
+                            </div>
+                        </div>
+                            ))
+                        ):(
+                            <div></div>
+                        )
+                    }
+                    
                     </div>
-                    <button className='bg-emerald-700 text-white px-5 py-2 rounded-full mt-5'>Submit Review</button>
+                    <form onSubmit={handleSubmit} action="">
+                    <div className='mt-3 flex flex-col md:w-[50vw] w-full'>
+                        <label htmlFor="" className='text-gray-700 font-medium'>Add a Review</label>
+                        <textarea value={comment} rows={5} onChange={(e) => setComment(e.target.value)} placeholder='Write your review..' className='outline-none border-1 w-full border-gray-400 rounded-md px-3 py-3 mt-4'/>
+                    </div>
+
+                     <div className="flex items-center gap-2 py-2">
+                        {[1, 2, 3, 4, 5].map((num) => (
+                            <span
+                            key={num}
+                            onClick={() => setRating(num)}
+                            className={`cursor-pointer text-[35px] mt-2 ${
+                                num <= rating ? 'text-yellow-400' : 'text-gray-400'
+                            }`}
+                            >
+                            {/* ★ */}
+                            <IoMdStar />
+                            </span>
+                        ))}
+                    </div>
+                    {
+                        loading ?
+                        <button className='md:px-7 md:py-2 px-4 py-2 flex items-center text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'><ImSpinner9 className='text-md animate-spin' />Please Wait...</button>
+                        :
+                        <button type='submit' className='bg-emerald-700 text-white cursor-pointer px-5 py-2 rounded-full mt-2'>Submit Review</button>
+                    }
+                    </form>
                 </div>
             }
             

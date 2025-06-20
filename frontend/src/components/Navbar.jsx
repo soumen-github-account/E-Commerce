@@ -45,7 +45,7 @@ const Navbar = () => {
             </NavLink>
         </li>
 
-        <li className='hover:bg-gray-200 hover:rounded-full py-3 px-3'>
+        <li className='hover:bg-gray-200 hover:rounded-full py-3 px-3 mr-1'>
             <NavLink onClick={()=>{setColor('cart'); scrollTo(0,0)}} to='/cart' className={`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${color==='cart' ? 'text-blue-800' :'text-gray-700'}`}>
                 <FaShoppingCart className='text-[22px]' />
                 <span className="nav__name">Cart</span>

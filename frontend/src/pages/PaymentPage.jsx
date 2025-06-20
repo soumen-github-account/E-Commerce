@@ -10,11 +10,12 @@ import { BsCashCoin } from "react-icons/bs";
 import { useUser } from '@clerk/clerk-react'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import { ImSpinner9 } from 'react-icons/im'
 
 const PaymentPage = () => {
   const {isSignedIn, isLoaded, user} = useUser();
   const userId = isLoaded && isSignedIn ? user.id : null;
-  const {backendUrl} = useContext(StoreContext)
+  const {backendUrl, loading, setLoading} = useContext(StoreContext)
   const [selected, setSelected] = useState('Online Payment');
   const {rupee} = useContext(StoreContext)
   const location = useLocation()
@@ -38,9 +39,11 @@ const PaymentPage = () => {
 
   const orderhandler = async()=>{
     try {
+      setLoading(true)
       const {data} = await axios.post(backendUrl + '/api/user/order-placed', {userId, items, amount:total, address, paymentType: selected})
       if(data.success){
         setOrderSuccess(true)
+        setLoading(false)
       } else{
         toast.error(data.message)
       }
@@ -50,11 +53,12 @@ const PaymentPage = () => {
   }
 
   const onlinePayment = async()=>{
-    try {
-      
-    } catch (error) {
-      
+    try{
+      toast.error("online payment is disable for demo !")
+    } catch{
+      toast.error(error.message)
     }
+    
   }
 
 
@@ -123,7 +127,13 @@ const PaymentPage = () => {
             </span>
             {selected === 'Cash On Delevery' && (
             <div className='w-full flex items-center justify-center my-4'>
-              <button className='bg-emerald-800 rounded-sm py-1 px-20 text-white cursor-pointer' onClick={orderhandler}>Place Order</button>
+              {
+                loading ?
+                <button className='md:px-7 md:py-2 px-4 py-2 flex items-center text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'><ImSpinner9 className='text-md animate-spin' />Please Wait...</button>
+                
+                :
+                <button className='bg-emerald-800 rounded-sm py-1 px-20 text-white cursor-pointer' onClick={orderhandler}>Place Order</button>
+              }
             </div>
             )}
         </div>

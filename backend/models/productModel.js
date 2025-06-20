@@ -1,5 +1,29 @@
 import mongoose from "mongoose";
 
+
+const reviewSchema = new mongoose.Schema({
+  user: {
+    type:String,
+    required: true
+  },
+  userImage: {type: String, default:"",},
+  name: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
+  comment: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+})
 const productSchema = new mongoose.Schema({
     name: {type:String,required:true},
     image: {
@@ -19,6 +43,16 @@ const productSchema = new mongoose.Schema({
     details_type:{type:Array, required:true},
     publish: {type: Boolean, default:true},
     avilable: {type:Boolean, default:true},
+
+    reviews: [reviewSchema],
+    numReviews: {
+        type: Number,
+        default: 0
+    },
+    averageRating: {
+        type: Number,
+        default: 0
+    },
     date: {type:Number, required:true},
 },{ minimize:false })
 

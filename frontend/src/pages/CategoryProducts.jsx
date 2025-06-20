@@ -144,7 +144,7 @@ const CategoryProducts = () => {
             <div className='w-40 max-w-50 bg-neutral-100 p-2' key={index} onClick={()=>navigate(`/produt-page/${item._id}`)}>
               <div className='w-full relative'>
                   <img src={item.image[0]} className='w-full rounded-md' alt="" />
-                  <button className='border-2 border-green-600 px-3 py-0.5 rounded-lg font-bold text-green-600 absolute -bottom-2 right-1 bg-white text-md'>Add</button>
+                  {/* <button className='border-2 border-green-600 px-3 py-0.5 rounded-lg font-bold text-green-600 absolute -bottom-2 right-1 bg-white text-md'>Add</button> */}
               </div>
               <div className='flex items-start flex-col'>
                   <p className='font-bold text-gray-900 mt-1 line-clamp-2'>{item.name}</p>

@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import AddProduct from './pages/admin/AddProduct';
 import { Toaster } from 'react-hot-toast';
+import Dashboard from './pages/admin/Dashboard';
 
 const App = () => {
   // const {atoken} = useContext(AdminContext)
@@ -15,6 +16,7 @@ const App = () => {
         <Routes>
           {/* Admin route */}
           <Route path='/' element={<></>} />
+          <Route path='/admin-dashboard' element={<Dashboard />} />
           <Route path='/add-product' element={<AddProduct />} />
         </Routes>
       </div>

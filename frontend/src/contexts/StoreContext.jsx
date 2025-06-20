@@ -15,15 +15,19 @@ const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState([]);
     const [totalItems, setTotalItems] = useState(0)
     const [allproduct, setAllproduct] = useState(false)
+    const [loading, setLoading] = useState(false)
+
 
 const addToCart = async (item) => {
   try {
+    setLoading(true)
     const { data } = await axios.post(
       backendUrl + '/api/user/add-to-cart',
       { userId, items: item }
     );
     if (data.success) {
       toast.success(data.message);
+      setLoading(false)
     } else {
       toast.error(data.message);
     }
@@ -58,10 +62,12 @@ const fetchCart = async () => {
 
   const removeFromCart = async(id, unit) => {
     try {
+      setLoading(true)
       const {data} = await axios.delete(backendUrl + "/api/user/delete-cart", {data:{userId, productId:id, unit}})
       if(data.success){
         setCartItems(data.cart);
         toast.success(data.message)
+        setLoading(false)
       }
 
     } catch (error) {
@@ -84,44 +90,6 @@ const fetchCart = async () => {
   useEffect(()=>{
     getProductData()
   },[])
-  // const updateCartQuantity = async(id, unit, type) => {
-  //   const updatedCart = cartItems.map(item => {
-  //   if (item.id === id && item.unit === unit) {
-  //     const newQty = type === 'inc' ? Math.min(4, item.quantity + 1) : Math.max(1, item.quantity - 1);
-  //     return { ...item, quantity: newQty };
-  //   }
-  //   return item;
-  // });
-
-  // setCartItems(updatedCart);
-  //   console.log({userId,
-  //     productId: id,
-  //     unit,
-  //     type,})
-  // try {
-  //   const res = await axios.post(backendUrl + "/api/user/update-quantity", {
-  //     userId,
-  //     productId: id,
-  //     unit,
-  //     type,
-  //   });
-    
-  //   if (res.data.success) {
-  //     toast.success("Cart updated");
-  //   } else {
-  //     toast.error(res.data.message || "Failed to update cart");
-  //   }
-  // } catch (err) {
-  //   toast.error("Error updating cart");
-  //   console.error(err);
-  // }
-
-  // };
-    //  Total calculation
-  
-  
-    
-  // cartitems Checkout
 
   useEffect(()=>{
     fetchCart()
@@ -130,7 +98,7 @@ const fetchCart = async () => {
       backendUrl,
       userId,
     cartItems, addToCart, setCartItems, removeFromCart,
-    rupee, fetchCart, totalItems, allproduct
+    rupee, fetchCart, totalItems, allproduct, loading, setLoading
   };
   return (
     <StoreContext.Provider value={contextValue}>
