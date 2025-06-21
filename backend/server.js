@@ -6,6 +6,7 @@ import { clerkWebhooks } from './controllers/webHooks.js'
 import userRouter from './routes/userRoute.js'
 import productRouter from './routes/productRoute.js'
 import connectCloudinary from './config/cloudinary.js'
+import adminRouter from './routes/adminRoute.js'
 
 
 //app config 
@@ -23,9 +24,11 @@ app.post('/webhooks', clerkWebhooks)
 
    app.use('/api/user', userRouter)
    app.use('/api/product/', productRouter)
- app.get('/',(req, res)=>{
-    res.send("api working")
- })
+   app.use('/api/admin/',adminRouter)
+   
+   app.get('/',(req, res)=>{
+      res.send("api working")
+   })
 
  app.listen(port, ()=>{
     console.log("App is started in", port)

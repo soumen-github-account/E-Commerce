@@ -52,8 +52,8 @@ const HomeProduct = ({categoryId}) => {
                       }
                       <IoStarHalfSharp />
                       </div>
-                      <p className='text-blue-900 text-sm font-sans'>{item.discount}% off</p>
-                      <p className='font-sans'>₹ {item.price[0]}</p>
+                      <p className='flex items-center gap-x-2 text-sm font-sans'><p className='text-blue-900 font-medium'>{item.discount}% off</p> <p className='text-[16px] line-through text-gray-500'>₹{item.price[0]}</p></p>
+                      <p className='font-sans'>₹ {item.discountedPrice[0]}</p>
                   </div>
               </div>
               ))

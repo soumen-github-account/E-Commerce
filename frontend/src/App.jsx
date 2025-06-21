@@ -19,6 +19,7 @@ import Privacy from './conditionPage/Privacy.jsx'
 import Condition from './conditionPage/Condition.jsx'
 import Shipping from './conditionPage/Shipping.jsx'
 import Refund from './conditionPage/Refund.jsx'
+import InvoiceDownload from './components/InvoiceDownload.jsx'
 // const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 // if (!PUBLISHABLE_KEY) {
 //   throw new Error('Missing Publishable Key')
@@ -42,6 +43,7 @@ const App = () => {
         <Route path='/edit-address/:id' element={<EditAddress />} />
         <Route path='/order' element={<OrderPage />} />
         <Route path='/search-page' element={<SearchPage />} />
+        <Route path='/invoice' element={<InvoiceDownload />} />
 
         <Route path='/privacy-policy' element={<Privacy />} />
         <Route path='/condition' element={<Condition />} />

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { assets } from '../../assets/assets'
 import { useContext } from 'react'
 import axios from 'axios'
 import { AppContext } from '../../context/AppContext'
 import { ImSpinner3 } from "react-icons/im";
 import { catagoryData } from '../../../../frontend/src/assets/categoryData'
 import toast from 'react-hot-toast'
+import { useEffect } from 'react'
+import upload_area from '../../assets/upload_area.svg'
 
 const AddProduct = () => {
     const [loading, setLoading] = useState(false)
@@ -45,17 +46,36 @@ const AddProduct = () => {
         setChange2(index)
     }
 
-    const [items, setItems] = useState([{ type: '', price: '' }]);
+    const [items, setItems] = useState([{ type: '', price: '' , discountedPrice: '' }]);
 
   const handleAdd = () => {
-    setItems([...items, { type: '', price: '' }]);
+    setItems([...items, { type: '', price: '', discountedPrice: ''  }]);
   };
 
-  const handleChange = (index, field, value) => {
-    const updated = [...items];
-    updated[index][field] = value;
-    setItems(updated);
-  };
+    
+
+//   const handleChange = (index, field, value) => {
+//     const updated = [...items];
+//     updated[index][field] = value;
+//     setItems(updated);
+//   };
+
+    const handleChange = (index, field, value) => {
+  const updated = [...items];
+  updated[index][field] = value;
+
+  // Grab latest price and discount
+  const price = field === 'price' ? value : updated[index].price;
+  const discountPercent = discount;
+
+  if (price && discountPercent) {
+    const discountAmount = (price * discountPercent) / 100;
+    updated[index].discountedPrice = Math.round(price - discountAmount);
+  }
+
+  setItems(updated);
+};
+
 
   const handleDelete = (index) => {
     const updated = items.filter((_, i) => i !== index);
@@ -112,6 +132,7 @@ const AddProduct = () => {
             items.forEach(item => {
             formData.append('type', item.type);
             formData.append('price', Number(item.price));
+            formData.append('discountedPrice', Number(item.discountedPrice));
             })
             brands.forEach(item => {
             formData.append('details', item.type);
@@ -135,34 +156,42 @@ const AddProduct = () => {
         }
     }
 
+    useEffect(() => {
+  const updated = items.map(item => {
+    if (item.price && discount) {
+      const discountAmount = (item.price * discount) / 100;
+      return {
+        ...item,
+        discountedPrice: Math.round(item.price - discountAmount),
+      };
+    }
+    return item;
+  });
+  setItems(updated);
+    }, [discount]);
+
+
   return (
     <form onSubmit={onSubmiHandler} className='m-5 w-full'>
         <p className='mb-3 text-lg font-medium'>Add Product</p>
         <div className='bg-white px-8 py-8 border rounded w-full max-w-4xl max-h-[80vh] overflow-y-scroll'>
-            {/* <div className='flex items-center gap-4 mb-8 text-gray-500'>
-                <label htmlFor="doc-img">
-                    <img className='w-16 bg-gray-100 rounded-full cursor-pointer' src={docImg ? URL.createObjectURL(docImg) : assets.upload_area} alt="" />
-                </label>
-                <input onChange={(e)=>setDocImg(e.target.files[0])} type="file" id='doc-img' hidden />
-                <p>Upload doctor <br />picture</p>
-            </div> */}
             <div>
                 <p className='pb-1'>Upload product images</p>
                 <div className='flex gap-2'>
                     <label htmlFor="image1">
-                        <img className='w-17 h-17' src={prodImg1 ? URL.createObjectURL(prodImg1) : assets.upload_area} alt="" />
+                        <img className='w-17 h-17' src={prodImg1 ? URL.createObjectURL(prodImg1) : upload_area} alt="" />
                         <input onChange={(e)=>setProdImg1(e.target.files[0])} type="file" id='image1' hidden />
                     </label>
                     <label htmlFor="image2">
-                        <img className='w-17 h-17' src={prodImg2 ? URL.createObjectURL(prodImg2) : assets.upload_area} alt="" />
+                        <img className='w-17 h-17' src={prodImg2 ? URL.createObjectURL(prodImg2) : upload_area} alt="" />
                         <input onChange={(e)=>setProdImg2(e.target.files[0])} type="file" id='image2' hidden />
                     </label>
                     <label htmlFor="image3">
-                        <img className='w-17 h-17' src={prodImg3 ? URL.createObjectURL(prodImg3) : assets.upload_area} alt="" />
+                        <img className='w-17 h-17' src={prodImg3 ? URL.createObjectURL(prodImg3) : upload_area} alt="" />
                         <input onChange={(e)=>setProdImg3(e.target.files[0])} type="file" id='image3' hidden />
                     </label>
                     <label htmlFor="image4">
-                        <img className='w-17 h-17' src={prodImg4 ? URL.createObjectURL(prodImg4) : assets.upload_area} alt="" />
+                        <img className='w-17 h-17' src={prodImg4 ? URL.createObjectURL(prodImg4) : upload_area} alt="" />
                         <input onChange={(e)=>setProdImg4(e.target.files[0])} type="file" id='image4' hidden />
                     </label>
                 </div>
@@ -251,6 +280,11 @@ const AddProduct = () => {
                       className="w-5 h-5 rounded-full text-blue-600 accent-blue-600"
                     /><p>Ton</p>
                     </div>
+                    
+                </div>
+                <div className='flex-1 flex flex-col gap-1'>
+                    <p>Product Discount</p>
+                    <input onChange={(e)=>setDiscount(e.target.value)} value={discount} className='border rounded px-3 py-2' type="number" placeholder='Discount of product' required />
                 </div>
                 <p>Type and Price</p>
                 <div>
@@ -265,11 +299,18 @@ const AddProduct = () => {
                     />
                     <input
                         type="number"
-                        placeholder="Price (e.g., 200)"
+                        placeholder="Original Price (e.g., 200)"
                         value={item.price}
                         onChange={(e) => handleChange(index, 'price', e.target.value)}
                         className="w-1/2 p-2 border border-gray-300 rounded"
                     />
+                    <input
+                        type='number'
+                        value={item.discountedPrice}
+                        placeholder='Discounted Price'
+                        readOnly
+                        className='border p-2 rounded w-1/3 bg-gray-100 text-gray-700 font-semibold'
+                        />
                     <button
                         type="button"
                         onClick={() => handleDelete(index)}
@@ -292,11 +333,6 @@ const AddProduct = () => {
                     <p>Stock Product</p>
                     <input onChange={(e)=>setStock(e.target.value)} value={stock} className='border rounded px-3 py-2' type="number" placeholder='Enter nmber of stock product' required />
                 </div>
-                <div className='flex-1 flex flex-col gap-1'>
-                    <p>Product Discount</p>
-                    <input onChange={(e)=>setDiscount(e.target.value)} value={discount} className='border rounded px-3 py-2' type="number" placeholder='Discount of product' required />
-                </div>
-
 
                 </div>
             

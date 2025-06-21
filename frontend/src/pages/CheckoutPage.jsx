@@ -135,7 +135,7 @@ const nextpage = ()=>{
               <h1 className='text-black font-medium text-[18px]'>Price Details</h1>
               <hr className='my-2 text-[#EBE8DB] border-dotted gap-1' />
               <div className='font-sans'>
-                <span className='flex items-center justify-between'><p className='text-gray-700'>Price ({totalItems} item)</p><p>{rupee} {total}</p></span>
+                <span className='flex items-center justify-between'><p className='text-gray-700'>Price ({items[0].quantity} item)</p><p>{rupee} {total}</p></span>
                 <span className='flex items-center justify-between'><p className='text-gray-700'>Platform Fee</p><p>{rupee} 5</p></span>
                 <span className='flex items-center justify-between'><p className='text-gray-700'>Discount</p><p className='text-green-800'>{Array.isArray(items) && items.reduce((acc, item) => acc + (item.discount || 0), 0) / items.length} %</p></span>
                 <span className='flex items-center justify-between'><p className='text-gray-700'>Delevery Chargs</p><p className='text-green-800 gap-2 flex'><span className='text-gray-400 line-through'>{rupee}40</span>Free</p></span>

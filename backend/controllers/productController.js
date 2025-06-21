@@ -1,4 +1,6 @@
-import ProductModel from "../models/productModel.js"
+import {v2 as cloudinary} from 'cloudinary'
+import ProductModel from '../models/productModel.js'
+
 import UserModel from "../models/userModel.js"
 
 export const addReview = async (req, res) => {
@@ -36,9 +38,120 @@ export const addReview = async (req, res) => {
       product.reviews.length
 
     await product.save()
-    res.status(201).json({ success: true,message: 'Review added' })
+    res.status(201).json({ success: true,message: 'Review added'})
 
   } catch (error) {
     res.status(500).json({ success:false, message: error.message })
   }
 }
+
+export const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      name,
+      categoryId,
+      sub_category,
+      sub_category2,
+      unit,
+      type,
+      stock,
+      price,
+      discountedPrice,
+      discount,
+      description,
+      details,
+      details_type
+    } = req.body;
+
+    // Validate required fields
+    if (
+      !name || !categoryId || !sub_category || !sub_category2 || !unit ||
+      !type || !stock || !description || !price || !discount || !details || !details_type
+    ) {
+      return res.json({ success: false, message: "Missing Details" });
+    }
+
+    const image1 = req.files?.image1?.[0];
+    const image2 = req.files?.image2?.[0];
+    const image3 = req.files?.image3?.[0];
+    const image4 = req.files?.image4?.[0];
+    const imageFiles = [image1, image2, image3, image4].filter(Boolean);
+
+    // Upload new images if provided
+    let imagesUrl = [];
+    if (imageFiles.length > 0) {
+      imagesUrl = await Promise.all(
+        imageFiles.map(async (file) => {
+          const result = await cloudinary.uploader.upload(file.path, { resource_type: "image" });
+          return result.secure_url;
+        })
+      );
+    }
+
+    // Get current product
+    const existingProduct = await ProductModel.findById(id);
+    if (!existingProduct) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    // Use old images if no new ones were uploaded
+    const finalImages = imagesUrl.length > 0 ? imagesUrl : existingProduct.image;
+
+    // Update product
+    await ProductModel.findByIdAndUpdate(id, {
+      name,
+      categoryId,
+      sub_category,
+      sub_category2,
+      unit,
+      type,
+      price,
+      stock,
+      discountedPrice,
+      discount,
+      description,
+      details,
+      details_type,
+      image: finalImages,
+      date: Date.now(),
+    });
+
+    res.status(200).json({ success: true, message: "Product Updated" });
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+export const getProductById = async(req, res)=>{
+  try {
+    const { id } = req.params
+    const product = await ProductModel.findById(id);
+    if (!product) return res.status(404).json({ msg: 'Product not found' });
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ msg: 'Update failed' });
+  }
+}
+
+
+export const deleteProduct = async(req, res)=>{
+  try {
+    const { id } = req.params
+
+    // const product = await ProductModel.findById(productId)
+    // if (!product) {
+    //     return res.status(404).json({ success: false, message: "product not found" });
+    // }
+    await ProductModel.findByIdAndDelete(id);
+    res.status(200).json({ success: true, message: "Product deleted successfully" });
+
+  } catch (error) {
+    return res.json({success: false, message:error.message})
+  }
+}
+
+

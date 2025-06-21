@@ -5,6 +5,9 @@ import Sidebar from './components/Sidebar';
 import AddProduct from './pages/admin/AddProduct';
 import { Toaster } from 'react-hot-toast';
 import Dashboard from './pages/admin/Dashboard';
+import AllProduct from './pages/admin/AllProduct';
+import ProductEditPage from './pages/admin/ProductEditPage';
+import AllOrders from './pages/admin/AllOrders';
 
 const App = () => {
   // const {atoken} = useContext(AdminContext)
@@ -18,6 +21,10 @@ const App = () => {
           <Route path='/' element={<></>} />
           <Route path='/admin-dashboard' element={<Dashboard />} />
           <Route path='/add-product' element={<AddProduct />} />
+          <Route path='/all-product' element={<AllProduct />} />
+          <Route path='/product-edit/:id' element={<ProductEditPage />} />
+          <Route path='/all-orders' element={<AllOrders />} />
+          
         </Routes>
       </div>
       <Toaster 

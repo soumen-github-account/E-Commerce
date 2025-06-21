@@ -10,7 +10,7 @@ const Model = ({
     showActionBtn=null,
     actionBtnIcon,
     actionBtnText,
-    onActionClick
+    onActionClick,
 }) => {
     
     if(!isOpen){

@@ -32,7 +32,7 @@ useEffect(()=>{
                     <p className='text-center my-4'>Your cart is empty.</p>
                   ):
               (
-                  cartItems?.items?.map((item, index)=>(
+                  cartItems?.items?.slice().reverse().map((item, index)=>(
                     <div className='mx-7 my-5 cursor-pointer' key={index}>
                   <div className='flex gap-3 hover:bg-gray-100'>
                     <div><img src={item.image} className='w-30' alt="" /></div>
@@ -40,7 +40,7 @@ useEffect(()=>{
                         <p className='md:text-xl text-sm font-medium line-clamp-1'>{item.name}</p>
                         <p className='text-md font-medium'>size: {item.unit}</p>
                         <p className='flex text-md font-medium'>qty: <p>{item.quantity}</p></p>
-                        <span className='font-sans flex gap4 items-center'><p>₹ {item.price * item.quantity}</p><p className='text-sm text-gray-500 line-through ml-3'>₹ 3345</p><p className='text-green-600 ml-3'>{item.discount}% off</p></span>
+                        <span className='font-sans flex gap4 items-center'><p>₹ {item.price * item.quantity}</p><p className='text-sm text-gray-500 line-through ml-3'>₹ {item.originalPrice}</p><p className='text-green-600 ml-3'>{item.discount}% off</p></span>
                     </div>
                     <p className='text-sm text-green-600 mt-1 ml-9 hidden md:block'>free delevary</p>
                 </div>

@@ -10,9 +10,7 @@ const start = async () => {
 
     const result = await ProductModel.updateMany({}, {
       $set: {
-        reviews: [],
-        numReviews: 0,
-        averageRating: 0
+        discountedPrice: []
       }
     });
 

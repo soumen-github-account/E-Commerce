@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+const OrderModel = ({orders, index, data}) => {
+    const date = new Date(data.date); //orders[index].date
+    const deliveryDate = data.items[0].deliveryDate // new Date(data.deliveryDate); //orders[index].deliveryDate
 
-const OrderModel = ({orders, index}) => {
-    const date = new Date(orders[index].date);
-    const deliveryDate = new Date(orders[index].deliveryDate);
-
+   
     const steps = [
   {
     title: 'Order Confirmed',
@@ -31,14 +31,15 @@ const OrderModel = ({orders, index}) => {
   },
   {
     title: 'Delivered',
-    date:  deliveryDate.toLocaleDateString('en-IN', {day: '2-digit',month: 'long',year: 'numeric'}),
+    date:  `${deliveryDate}`,//.toLocaleDateString('en-IN', {day: '2-digit',month: 'long',year: 'numeric'}),
     details: [
       { message: 'Your item has been delivered', time: 'Wed, 5th Feb \'25 - 10:22pm' }
     ]
   }
 ];
 
-const currentStatus = orders[index].orderStatus;
+const currentStatus = data.orderStatus;
+
 const getStatusIndex = () => {
     return steps.findIndex(step => step.title === currentStatus);
   };

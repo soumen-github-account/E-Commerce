@@ -7,14 +7,31 @@ import axios from 'axios'
 import Footer from '../components/Footer'
 import Model from '../components/Model'
 import OrderModel from '../components/OrderModel'
+import { RxCross2 } from 'react-icons/rx'
+import InvoiceDownload from '../components/InvoiceDownload'
+import { useNavigate } from 'react-router-dom'
 
 const OrderPage = () => {
     const {backendUrl} = useContext(StoreContext)
     const { isLoaded, isSignedIn, user } = useUser()
     const userId = isLoaded && isSignedIn ? user.id : null;
     const [orders, setOrders] = useState([])
+    const navigate = useNavigate()
     const [deliveryDate, setDeliveryDate] = useState('');
     const [openAuthModel, setopenAuthModel] = useState(false)
+    const [statusData, setStatusData] = useState({})
+
+    const openStatus = async(id)=>{
+      try {
+        const {data} = await axios.get(`http://localhost:8000/api/user/get-order-status/${id}`)
+        if(data.success){
+          setopenAuthModel(true)
+          setStatusData(data.order)
+        }
+      } catch (error) {
+        toast.error(error.message)
+      }
+    }
 
     const getOrder = async()=>{
         try {
@@ -59,6 +76,9 @@ const OrderPage = () => {
     //     setDeliveryDate(generateDeliveryDate());
     // },[])
 
+    const InvoiceDownload = async(item)=>{
+        navigate('/invoice', { state: { order: item } })
+    }
     
 
   return (
@@ -83,7 +103,7 @@ const OrderPage = () => {
                                         <span className='flex gap-2'>Total amount: <p>{item.amount}</p></span>
                                     </div>
                                     {
-                                        item.items?.map((subItem, subIndex)=>(
+                                        item.items?.slice().reverse().map((subItem, subIndex)=>(
                                             <div className='md:flex items-center justify-between my-2' key={subIndex}>
                                                 <div><img src={subItem.image} className='w-22' alt="" /></div>
                                                 <div>
@@ -123,12 +143,20 @@ const OrderPage = () => {
                                         }}
                                         hideHeader
                                     >
-                                        <OrderModel orders={orders} index={index} />
+                                        <OrderModel data={statusData} orders={orders} index={index} />
+                                        <RxCross2 onClick={()=>setopenAuthModel(false)} className='cursor-pointer absolute right-3 top-3 rounded-full p-2 hover:bg-gray-200 text-[35px]'/>
                                     </Model>
 
-                                    <div>
-                                        <button onClick={()=>setopenAuthModel(true)} className='text-emerald-700 underline cursor-pointer'>Check Status</button>
+                                    <div className='flex gap-x-3 items-center'>
+                                        <button onClick={()=>openStatus(item._id)} className='text-emerald-700 underline cursor-pointer'>Check Status</button>
+                                        <button
+                                        onClick={()=>InvoiceDownload(item)}
+                                        className="bg-gray-200 border-1 border-gray-400 text-gray-700 px-4 py-1 rounded text-sm cursor-pointer"
+                                        >
+                                        Download Invoice
+                                        </button>
                                     </div>
+                                    
                                     
                                 </div>
                             ))

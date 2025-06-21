@@ -37,6 +37,7 @@ const productSchema = new mongoose.Schema({
     type: {type: Array, default:[]},
     stock: {type: Number, required:true},
     price: {type:Array, default:[]},
+    discountedPrice: {type:Array, default:[]},
     discount: {type:Number, required:true},
     description: {type:String, required:true},
     details: {type: Array, required:true},
@@ -51,7 +52,7 @@ const productSchema = new mongoose.Schema({
     },
     averageRating: {
         type: Number,
-        default: 0
+        default: 4
     },
     date: {type:Number, required:true},
 },{ minimize:false })

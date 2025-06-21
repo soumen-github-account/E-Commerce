@@ -23,6 +23,7 @@ const ProductPage = () => {
     const navigate = useNavigate()
     const {user, isLoaded, isSignedIn} = useUser()
     const userId = isLoaded && isSignedIn ? user.id : null;
+    const [buyLoading, setBuyLoading] = useState(false)
 
     const [productInfo, setProductInfo] = useState(null)
     const [changeButton, setChangeButton] = useState("des")
@@ -51,8 +52,9 @@ const ProductPage = () => {
     };
 
     const unit = productInfo?.type?.[selectedIndex] || '';
-    const price = productInfo?.price?.[selectedIndex] || 0;
+    const price = productInfo?.discountedPrice?.[selectedIndex] || 0;
     const totalPrice = price * quantity
+    const originalPrice = productInfo?.price?.[selectedIndex] || 0;
 
     const handleAddToCart = () => {
 
@@ -64,8 +66,8 @@ const ProductPage = () => {
       name: productInfo.name,
       image: productInfo.image[0],
       unit: unit,
-      price: productInfo.price[selectedUnitIndex],
-    //   originalPrice: productInfo.price[selectedIndex],
+      price: productInfo.discountedPrice[selectedUnitIndex],
+      originalPrice: productInfo.price[selectedIndex],
       discount: productInfo.discount,
       quantity,
       stock: productInfo.stock
@@ -84,6 +86,7 @@ const ProductPage = () => {
     if(!isSignedIn && isLoaded){
         navigate('/signup')
     } else{
+    setBuyLoading(true)
     const orderItem = {
         id: productInfo.id,
         name: productInfo.name,
@@ -95,6 +98,7 @@ const ProductPage = () => {
         deliveryDate,
     };
     navigate('/order-summary', { state: { buyNowItem: orderItem } });
+    setBuyLoading(false)
     }
     };
     const generateDeliveryDate = () => {
@@ -226,17 +230,20 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
             <div className='flex flex-col items-start p-5'>
                 <p className='text-2xl font-bold'>{productInfo.name}</p>
-                <div className='flex gap-1 text-yellow-500 mt-3 items-center'>
-                {
+                <div className='flex gap-1 text-yellow-500 md:text-[25px] text-[20px] mt-3 items-center'>
+                {/* {
                     [1,2,3,4].map((item,index)=>(
                         <IoStarSharp key={index} />
                     ))
                 }
-                <IoStarHalfSharp />
+                <IoStarHalfSharp /> */}
+                {[...Array(5)].map((_, i) =>
+                    i < productInfo.averageRating ? <IoMdStar key={i} /> : <IoMdStarOutline key={i} />
+                )}
                 <p className='text-blue-600 ml-3 text-sm font-serif'>Very Good  <span className='font-serif'>~ 23,456 Reviews</span></p>
                 </div>
                 <div className='rounded-r-lg px-3 py-1 text-md bg-emerald-500 text-white mt-2'>Top Discount of Sale</div>
-                <span className='flex py-1 px-3 items-center text-lg font-sans'><div className='text-green-600 text-[20px] gap-1 flex items-center'><FaArrowDown className='' /> {productInfo.discount}% </div><p className='text-gray-500 ml-3 text-md line-through'>₹ 2345</p><p className='ml-3 text-xl'>₹ {totalPrice}</p></span>
+                <span className='flex py-1 px-3 items-center text-lg font-sans'><div className='text-green-600 text-[20px] gap-1 flex items-center'><FaArrowDown className='' /> {productInfo.discount}% </div><p className='text-gray-500 ml-3 text-md line-through'>₹ {originalPrice}</p><p className='ml-3 text-xl'>₹ {totalPrice}</p></span>
                 <div className='text-sm font-sans'>Delivery by {deliveryDate}  | <span className='text-emerald-800'>Free</span></div>
                 <div className='md:flex hidden flex-col mt-2'>
                     <p className='flex gap-3 items-center'><BiSolidOffer className='text-[25px] text-green-600' /> <span className='text-md font-medium'>Offers</span></p>
@@ -294,7 +301,7 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
                         <button onClick={handleAddToCart} className='md:px-7 md:py-2 px-4 py-2 text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'>Add to cart</button>
                     }
                     {
-                        loading ? 
+                        buyLoading ? 
                         <button className='md:px-7 md:py-2 px-4 py-2 flex items-center text-white bg-emerald-600 rounded-full cursor-pointer md:text-[17px] text-md'><ImSpinner9 className='text-md animate-spin' />Please Wait...</button>
                         :
                         <button onClick={()=>{handleBuyNow();scrollTo(0,0)}} className='md:px-7 md:py-2 px-4 py-2 text-emerald-600 bg-emerald-50 border-2 border-emerald-800 rounded-full cursor-pointer md:text-[17px] text-sm font-bold'>Buy Now</button>
@@ -313,7 +320,7 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
             <div className='flex md:gap-6 gap-2'>
                 <button onClick={()=>setChangeButton('des')} className='md:py-2 md:px-5 text-sm px-3 py-1 rounded-full border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 cursor-pointer'>Description</button>
                 <button onClick={()=>setChangeButton('add')} className='md:py-2 md:px-5 text-sm px-3 py-1 rounded-full border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 cursor-pointer'>Additional Info</button>
-                <button onClick={()=>setChangeButton('review')} className='md:py-2 md:px-5 text-sm px-3 py-1 rounded-full border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 cursor-pointer'>Reviews <span>0</span></button>
+                <button onClick={()=>setChangeButton('review')} className='md:py-2 md:px-5 text-sm px-3 py-1 rounded-full border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 cursor-pointer'>Reviews <span className='font-sans text-[15px]'>{productInfo.numReviews}</span></button>
             </div>
 
             {

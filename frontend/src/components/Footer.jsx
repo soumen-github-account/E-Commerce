@@ -9,7 +9,8 @@ const Footer = () => {
       {/*----------- Left Section---------- */}
       <div>
         <img className='mb-5 w-35' src={logo} alt="" />
-        <p className='w-full md:w-2/3 text-gray-600 '>Build professional resumes effortlessly with our free, AI-powered resume builder. Fast, secure, and mobile-friendly—perfect for landing your dream job. No hidden fees, just results. Try it today!</p>
+        <p className='w-full md:w-2/3 text-gray-600 '>Shop top brands effortlessly with our secure, mobile-friendly eCommerce app. Fast delivery, easy returns, and unbeatable deals—no extra fees, just great products. Start shopping smarter today!
+        Would you like a version focused on a specific niche (like fashion, tech, or groceries)?</p>
       </div>
 
       {/*----------- Center Section---------- */}

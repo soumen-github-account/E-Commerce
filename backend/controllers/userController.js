@@ -243,3 +243,15 @@ export const editAddress = async(req, res)=>{
     return res.json({success:false, message:error.message})
   }
 }
+
+export const getOrderStatusById = async(req, res)=>{
+    try {
+        const { id } = req.params
+
+        const order = await OrderModel.findById(id)
+        
+        return res.json({success:true, order})
+    } catch (error) {
+        return res.json({success: false, message:error.message})
+    }
+}
