@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { StoreContext } from '../contexts/StoreContext';
 import { useClerk, useUser, UserButton } from '@clerk/clerk-react';
 import { RxCross2 } from "react-icons/rx";
+import { NavLink } from 'react-router-dom'
+
 
 const HeaderSearch = () => {
     const { totalItems } = useContext(StoreContext)
@@ -93,13 +95,14 @@ const HeaderSearch = () => {
         </div>
         <div className=''>
         <div className='flex gap-4 md:ml-5 '>
-        {/* <div className="flex p-1 items-center justify-between">
+        <div className="flex p-1 items-center justify-between">
             <div className='relative'>
-            <FaRegHeart className='text-2xl' />
-            <div className='absolute rounded-full bg-emerald-600 text-white w-5 h-5 flex items-center justify-center -top-3 left-3 text-center pb-1'>0</div>
+            {/* <div className='absolute rounded-full bg-emerald-600 text-white w-5 h-5 flex items-center justify-center -top-3 left-3 text-center pb-1'>0</div> */}
             </div>
-            <p className='ml-2 hidden md:block'>Wishlist</p>
-        </div> */}
+            <NavLink to='/order'>
+            <p className='ml-2 hidden md:block bg-gray-100 px-4 py-1 rounded-md border-1 border-gray-300 cursor-pointer'>My Orders</p>
+            </NavLink>
+        </div>
 
         <div onClick={()=>navigate('/cart')} className="flex p-1 items-center justify-between cursor-pointer">
             <div className='relative'>

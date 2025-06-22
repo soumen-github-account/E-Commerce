@@ -10,7 +10,6 @@ import cat1 from '../assets/cat1.png'
 
 
 const Navbar = () => {
-    const [color, setColor] = useState('home')
     const { isSignedIn, isLoaded, user } = useUser();
 
   return (
@@ -25,28 +24,28 @@ const Navbar = () => {
         </li>
 
         <li className='hover:bg-gray-200 hover:rounded-full py-3 px-3'>
-            <NavLink to='/all-catagory' className={({isActive})=>`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${isActive ? 'text-blue-800' :'text-gray-700'}`}>
+            <NavLink to='/all-catagory' onClick={() => window.scrollTo(0, 0)} className={({isActive})=>`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${isActive ? 'text-blue-800' :'text-gray-700'}`}>
                 <BiSolidCategoryAlt className='text-[22px]' />
                 <span className="nav__name">Categories</span>
             </NavLink>
         </li>
 
         <li className='hover:bg-gray-200 hover:rounded-full px-3'>
-            <NavLink to='/allCategory-produt/Grocery' className={({isActive})=>`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${isActive ? 'text-blue-800' :'text-gray-700'}`}>
+            <NavLink to='/allCategory-produt/Grocery' onClick={() => window.scrollTo(0, 0)} className={({isActive})=>`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${isActive ? 'text-blue-800' :'text-gray-700'}`}>
                     <img src={cat1} className='w-10' alt="" />
                 <span className="nav__name">Grocery</span>
             </NavLink>
         </li>
 
         <li className='hover:bg-gray-200 hover:rounded-full py-3 px-3'>
-            <NavLink to='/order' className={({isActive})=>`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${isActive ? 'text-blue-800' :'text-gray-700'}`}>
+            <NavLink to='/order' onClick={() => window.scrollTo(0, 0)} className={({isActive})=>`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${isActive ? 'text-blue-800' :'text-gray-700'}`}>
                 <FaBox className='text-[22px]' />
                 <span className="nav__name">Orders</span>
             </NavLink>
         </li>
 
         <li className='hover:bg-gray-200 hover:rounded-full py-3 px-3 mr-1'>
-            <NavLink to='/cart' className={({isActive})=>`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${isActive ? 'text-blue-800' :'text-gray-700'}`}>
+            <NavLink to='/cart' onClick={() => window.scrollTo(0, 0)} className={({isActive})=>`active-link flex flex-col items-center gap-x-4 text-sm justify-center font-bold ${isActive ? 'text-blue-800' :'text-gray-700'}`}>
                 <FaShoppingCart className='text-[22px]' />
                 <span className="nav__name">Cart</span>
             </NavLink>

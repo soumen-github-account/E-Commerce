@@ -23,7 +23,7 @@ const OrderPage = () => {
 
     const openStatus = async(id)=>{
       try {
-        const {data} = await axios.get(`http://localhost:8000/api/user/get-order-status/${id}`)
+        const {data} = await axios.get(backendUrl + `/api/user/get-order-status/${id}`)
         if(data.success){
           setopenAuthModel(true)
           setStatusData(data.order)
@@ -150,7 +150,7 @@ const OrderPage = () => {
                                     <div className='flex gap-x-3 items-center'>
                                         <button onClick={()=>openStatus(item._id)} className='text-emerald-700 underline cursor-pointer'>Check Status</button>
                                         <button
-                                        onClick={()=>InvoiceDownload(item)}
+                                        onClick={()=>{InvoiceDownload(item); scrollTo(0,0)}}
                                         className="bg-gray-200 border-1 border-gray-400 text-gray-700 px-4 py-1 rounded text-sm cursor-pointer"
                                         >
                                         Download Invoice
