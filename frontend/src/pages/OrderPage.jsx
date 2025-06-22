@@ -126,7 +126,7 @@ const OrderPage = () => {
                                                 </div>
                                                 <div>
                                                     <p>Quantity: {subItem.quantity}</p>
-                                                    <span className='flex items-center gap-x-2'>Status: <p className='text-lg text-green-700'>{item.orderStatus}</p></span>
+                                                    <span className='flex items-center gap-x-2'>Status: <p className={`text-lg ${item.orderStatus === 'Cancelled' ? 'text-red-700' : 'text-green-700'}`}>{item.orderStatus}</p></span>
                                                 </div>
                                                 <div>
                                                     <span className='flex'>Price : <p>{subItem.price}</p></span>
@@ -156,8 +156,6 @@ const OrderPage = () => {
                                         Download Invoice
                                         </button>
                                     </div>
-                                    
-                                    
                                 </div>
                             ))
                         }
