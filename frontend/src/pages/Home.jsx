@@ -10,6 +10,7 @@ import Banner2 from '../components/Banner2'
 import { catagoryData } from '../assets/categoryData'
 import { useNavigate } from 'react-router-dom'
 import { IoSearch } from "react-icons/io5";
+import AppDownload from '../components/AppDownload'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -50,6 +51,7 @@ const Home = () => {
         <MidBanner />
         
         <Banner />
+        <AppDownload />
         <Banner2 />
         <Footer />
     </>

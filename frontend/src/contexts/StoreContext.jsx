@@ -97,9 +97,9 @@ const fetchCart = async () => {
     const contextValue = {
       backendUrl,
       userId,
-    cartItems, addToCart, setCartItems, removeFromCart,
-    rupee, fetchCart, totalItems, allproduct, loading, setLoading
-  };
+      cartItems, addToCart, setCartItems, removeFromCart,
+      rupee, fetchCart, totalItems, allproduct, loading, setLoading
+    };
   return (
     <StoreContext.Provider value={contextValue}>
       {props.children}

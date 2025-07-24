@@ -30,6 +30,6 @@ app.post('/webhooks', clerkWebhooks)
       res.send("api working")
    })
 
- app.listen(port, ()=>{
-    console.log("App is started in", port)
- })
+   app.listen(port, ()=>{
+      console.log("App is started in", port)
+   })

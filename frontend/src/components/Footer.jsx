@@ -37,7 +37,7 @@ const Footer = () => {
       <div>
       <hr />
         <p className='py-3 text-sm text-center font-sans'>Copyright 2024 @ sdking.dev - All Right Reserved.</p>
-        <span className='md:flex w-full flex-col items-center justify-center gap-x-3 font-sans text-sm md:text-md'><Link to={'/privacy-policy'}>Privacy and Policy</Link> | <Link to={'/condition'}>Terms and Conditions</Link> | <Link to={'/shipping'}>Shipping Policy</Link> | <Link to={'/refund'}>Cancellations and Refunds</Link></span>
+        <span className='md:flex w-full items-center justify-center gap-x-3 font-sans text-sm md:text-md'><Link to={'/privacy-policy'}>Privacy and Policy</Link> | <Link to={'/condition'}>Terms and Conditions</Link> | <Link to={'/shipping'}>Shipping Policy</Link> | <Link to={'/refund'}>Cancellations and Refunds</Link></span>
       </div>
     </div>
   )
