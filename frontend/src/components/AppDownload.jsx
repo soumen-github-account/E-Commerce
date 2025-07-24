@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './AppDownload.css';
-import app_store from '../assets/app_Store.png';
-import play_store from '../assets/play_Store.png';
+import app_store from '../assets/app_store.png';
+import play_store from '../assets/play_store.png';
 
 const AppDownload = () => {
   const [installPrompt, setInstallPrompt] = useState(null);
