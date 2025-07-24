@@ -19,7 +19,7 @@ import axios from 'axios'
 
 const ProductPage = () => {
     const {id} = useParams()
-    const { addToCart, allproduct, loading, setLoading } = useContext(StoreContext);
+    const { addToCart, allproduct, loading, setLoading, backendUrl } = useContext(StoreContext);
     const navigate = useNavigate()
     const {user, isLoaded, isSignedIn} = useUser()
     const userId = isLoaded && isSignedIn ? user.id : null;
@@ -152,7 +152,7 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     try {
         setLoading(true)
-      const {data} = await axios.post(`http://localhost:8000/api/product/review-add/${id}`,{userId, rating, comment} )
+        const {data} = await axios.post(backendUrl + `/api/product/review-add/${id}`,{userId, rating, comment} )
         if(data.success){
             toast.success(data.message)
             // Create the review object you just added (manually)
