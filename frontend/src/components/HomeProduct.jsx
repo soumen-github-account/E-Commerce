@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { StoreContext } from '../contexts/StoreContext';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { ImSpinner9 } from 'react-icons/im';
+import CardSkeleon from './CardSkeleon';
 
 const HomeProduct = ({categoryId}) => {
   const {allproduct} = useContext(StoreContext)
@@ -59,9 +60,18 @@ const HomeProduct = ({categoryId}) => {
               ))
             )
          : 
-         (<div className='w-full items-center justify-center mt-3'>
-          <div className='md:px-7 gap-2 md:py-2 px-4 py-2 flex items-center text-gray-800 rounded-full cursor-pointer md:text-[17px] text-md'><ImSpinner9 className='text-md animate-spin' />Please Wait...</div>
-         </div>)
+         (
+        //  <div className='w-full items-center justify-center mt-3'>
+        //   <div className='md:px-7 gap-2 md:py-2 px-4 py-2 flex items-center text-gray-800 rounded-full cursor-pointer md:text-[17px] text-md'><ImSpinner9 className='text-md animate-spin' />Please Wait...</div>
+        //  </div>
+        <div className='w-full grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-x-3'>
+          {
+            Array(6).fill().map((_, index)=>(
+              <CardSkeleon key={index} />
+            ))
+          }
+          </div>
+         )
         }
         
       </div>
