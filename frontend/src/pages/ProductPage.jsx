@@ -226,8 +226,6 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
             ))}
             </div>
         </div>
-
-
             <div className='flex flex-col items-start p-5'>
                 <p className='text-2xl font-bold'>{productInfo.name}</p>
                 <div className='flex gap-1 text-yellow-500 md:text-[25px] text-[20px] mt-3 items-center'>
@@ -276,7 +274,7 @@ const [currentImageIndex, setCurrentImageIndex] = useState(0);
                 
                 <div className='flex mt-2 items-center gap-4'>
                     <h1 className='text-lg'>{productInfo.unit}</h1>
-                    <div className='flex gap-4 font-sans'>
+                    <div className='flex max-sm:w-[75vw] gap-4 font-sans overflow-scroll scroll-hide'>
                         {
                             productInfo.type.map((item,index)=>(
                                 <div onClick={() => handleUnitSelect(index)} key={index} className={`px-6 cursor-pointer hover:bg-gray-200 py-2 rounded-sm ${selectedIndex === index ? 'border-2 border-emerald-700' : "border-1 border-gray-300"}`}>{item}</div>
