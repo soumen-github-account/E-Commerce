@@ -4,12 +4,6 @@ import ProductModel from '../models/productModel.js'
 import OrderModel from '../models/orderModel.js'
 import UserModel from '../models/userModel.js'
 
-
-
-
-
-// API for adding Product
-
 const addProduct = async(req, res)=>{
     try{
         const {name, categoryId, sub_category,sub_category2, unit,type, stock, price, discountedPrice ,discount,description,details,details_type } = req.body
@@ -20,16 +14,10 @@ const addProduct = async(req, res)=>{
 
         const image = [image1,image2,image3,image4].filter((item)=> item != undefined)
 
-        // for input field missing
         if(!name || !categoryId || !sub_category ||  !sub_category2 || !unit || !type || !stock || !description || !price || !discount || !details || !details_type){
            return res.json({success:false, message: "Missing Details"})
         }
         
-        
-        
-        // upload image to cloudinary 
-        // const imageUpload = await cloudinary.uploader.upload(image.path, {resource_type:"image"})
-        // const imageUrl = imageUpload.secure_url
         
         let imagesUrl = await Promise.all(
             image.map(async (item)=>{
@@ -57,8 +45,6 @@ const addProduct = async(req, res)=>{
         const newProduct = new ProductModel(productData)
         await newProduct.save()
         res.json({success:true, message: "Product added"})
-        // console.log({name, email, password, speciality, degree, experience, about, fees, address }, imageFile)
-
 
     } catch(error){
         console.log(error)

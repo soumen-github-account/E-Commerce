@@ -15,7 +15,7 @@ export const addReview = async (req, res) => {
       return res.status(404).json({ message: 'Product not found' })
     }
 
-    // Check if user already reviewed
+
     const alreadyReviewed = product.reviews.find(
       (r) => r.user.toString() === userId.toString()
     )
@@ -65,7 +65,7 @@ export const updateProduct = async (req, res) => {
       details_type
     } = req.body;
 
-    // Validate required fields
+   
     if (
       !name || !categoryId || !sub_category || !sub_category2 || !unit ||
       !type || !stock || !description || !price || !discount || !details || !details_type
@@ -79,7 +79,6 @@ export const updateProduct = async (req, res) => {
     const image4 = req.files?.image4?.[0];
     const imageFiles = [image1, image2, image3, image4].filter(Boolean);
 
-    // Upload new images if provided
     let imagesUrl = [];
     if (imageFiles.length > 0) {
       imagesUrl = await Promise.all(
@@ -90,16 +89,13 @@ export const updateProduct = async (req, res) => {
       );
     }
 
-    // Get current product
     const existingProduct = await ProductModel.findById(id);
     if (!existingProduct) {
       return res.status(404).json({ success: false, message: "Product not found" });
     }
 
-    // Use old images if no new ones were uploaded
     const finalImages = imagesUrl.length > 0 ? imagesUrl : existingProduct.image;
 
-    // Update product
     await ProductModel.findByIdAndUpdate(id, {
       name,
       categoryId,
@@ -142,10 +138,6 @@ export const deleteProduct = async(req, res)=>{
   try {
     const { id } = req.params
 
-    // const product = await ProductModel.findById(productId)
-    // if (!product) {
-    //     return res.status(404).json({ success: false, message: "product not found" });
-    // }
     await ProductModel.findByIdAndDelete(id);
     res.status(200).json({ success: true, message: "Product deleted successfully" });
 

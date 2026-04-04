@@ -27,7 +27,6 @@ const InvoiceDownload = () => {
     });
   };
 
-  // Common cell style for the table
   const cellStyle = {
     border: '1px solid #ccc',
     padding: '8px',
@@ -62,20 +61,17 @@ const InvoiceDownload = () => {
         }}
         className='w-[700px]'
       >
-        {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <img src={logo} alt="logo" style={{ width: '120px' }} crossOrigin="anonymous" />
           <p style={{ fontSize: '18px', fontWeight: 'bold' }}>INVOICE</p>
         </div>
 
-        {/* Company Info */}
         <div style={{ marginTop: '16px', fontSize: '14px' }}>
           <p><strong>Shopstic Limited India</strong></p>
           <p>123 Business St, Kolkata</p>
           <p>Email: supportshopstic123@gmail.com</p>
         </div>
 
-        {/* Table */}
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '24px' }} className='min-w-full'>
           <thead>
             <tr style={{ backgroundColor: '#0d9488', color: 'white' }}>
@@ -99,7 +95,6 @@ const InvoiceDownload = () => {
           </tbody>
         </table>
 
-        {/* Totals */}
         <div style={{ marginTop: '24px', fontSize: '14px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Delivery Fee:</span>
@@ -115,7 +110,6 @@ const InvoiceDownload = () => {
           </div>
         </div>
 
-        {/* Footer */}
         <div style={{ marginTop: '24px', fontWeight: '500' }}>
           <p>Thank you for your purchase!</p>
           <p>For support, contact supportshopstic123@gmail.com</p>

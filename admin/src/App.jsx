@@ -10,14 +10,12 @@ import ProductEditPage from './pages/admin/ProductEditPage';
 import AllOrders from './pages/admin/AllOrders';
 
 const App = () => {
-  // const {atoken} = useContext(AdminContext)
   return (
     <div className='bg-[#F8F9FD]'>
       <Navbar />
       <div className='flex items-start'>
         <Sidebar/>
         <Routes>
-          {/* Admin route */}
           <Route path='/' element={<></>} />
           <Route path='/admin-dashboard' element={<Dashboard />} />
           <Route path='/add-product' element={<AddProduct />} />

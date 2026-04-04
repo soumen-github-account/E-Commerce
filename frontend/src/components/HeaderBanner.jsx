@@ -39,7 +39,7 @@ const HeaderBanner = ()=>{
 
   return (
     <div className="w-full mx-auto md:px-9 px-4 relative">
-      {/* Image Slide */}
+
       <div className="relative md:h-[25vw] h-[100px] overflow-hidden md:rounded-2xl rounded-lg shadow-lg">
         {images.map((img, index) => (
           <img
@@ -56,8 +56,6 @@ const HeaderBanner = ()=>{
           />
         ))}
       </div>
-
-      {/* Buttons */}
       <button
         onClick={prevSlide}
         className="absolute hidden md:block text-2xl z-10 left-15 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700"
@@ -72,7 +70,6 @@ const HeaderBanner = ()=>{
         <MdKeyboardArrowRight />
       </button>
 
-      {/* Dots */}
       <div className="flex justify-center z-10 items-center gap-2 mt-4 absolute bottom-[10%] left-[50%]">
       {images.map((_, index) => (
         <span

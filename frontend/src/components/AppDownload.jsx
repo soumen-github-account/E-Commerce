@@ -9,7 +9,6 @@ const AppDownload = () => {
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    // 1. Detect if app is already installed
     const checkInstalled = () => {
       const isStandalone =
         window.matchMedia('(display-mode: standalone)').matches ||
@@ -19,7 +18,6 @@ const AppDownload = () => {
 
     checkInstalled();
 
-    // 2. Listen for beforeinstallprompt to show custom button
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
       setInstallPrompt(e);
@@ -28,7 +26,6 @@ const AppDownload = () => {
       }
     };
 
-    // 3. Listen for appinstalled event
     const handleAppInstalled = () => {
       console.log('App installed');
       setIsInstalled(true);

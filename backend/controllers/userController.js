@@ -12,11 +12,10 @@ export const addToCart = async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid data format" });
         }
 
-        // Check if cart already exists for the user
+        
         let cart = await CartModel.findOne({ userId });
 
         if (cart) {
-            // Update existing cart
             for (let newItem of items) {
                 const existingItemIndex = cart.items.findIndex(
                     (item) => item.id === newItem.id && item.unit === newItem.unit
@@ -29,8 +28,6 @@ export const addToCart = async (req, res) => {
                 }
                 cart.markModified("items");
             }
-
-            // Recalculate totalAmount
             cart.totalAmount = cart.items.reduce(
                 (acc, item) => acc + item.price * item.quantity, 0
             );
@@ -39,7 +36,6 @@ export const addToCart = async (req, res) => {
             await cart.save();
             return res.status(200).json({ success: true, message: "Cart updated", cart });
         } else {
-            // Create a new cart
             const totalAmount = items.reduce(
                 (acc, item) => acc + item.price * item.quantity, 0
             );
@@ -79,21 +75,18 @@ export const removeFromCart = async (req, res) => {
             return res.status(400).json({ success: false, message: "userId and productId are required" });
         }
 
-        // Find the user's cart
         const cart = await CartModel.findOne({ userId });
 
         if (!cart) {
             return res.status(404).json({ success: false, message: "Cart not found" });
         }
 
-        // Filter out the item to be removed
         cart.items = cart.items.filter(item => {
             const isSameProduct = item.id.toString() === productId.toString();
             const isSameUnit = unit ? item.unit === unit : true;
             return !(isSameProduct && isSameUnit);
         });
 
-        // Recalculate totalAmount
         cart.totalAmount = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
         await cart.save();
@@ -122,7 +115,7 @@ export const createOrder = async (req, res) => {
       invoice_receipt
     } = req.body;
 
-    const currentDate = Date.now(); // store as timestamp (Number)
+    const currentDate = Date.now(); 
 
     const newOrder = new OrderModel({
       userId,
@@ -144,7 +137,6 @@ export const createOrder = async (req, res) => {
         );
       });
 
-      // Recalculate total amount
       cart.totalAmount = cart.items.reduce(
         (acc, item) => acc + item.price * item.quantity,
         0

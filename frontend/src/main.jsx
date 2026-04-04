@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import React from 'react';
-// import { createRoot, ReactDOM } from 'react-dom/client'
 import ReactDOM from 'react-dom/client';
 import './index.css'
 import App from './App.jsx'
@@ -8,11 +7,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { ClerkProvider } from '@clerk/clerk-react';
 import { registerSW } from 'virtual:pwa-register';
 
-// ✅ Automatically register & update the service worker
 registerSW();
 import StoreContextProvider from './contexts/StoreContext.jsx'
 
-const clerkFrontendApi = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY; // e.g. "clerk.yourdomain.com"
+const clerkFrontendApi = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

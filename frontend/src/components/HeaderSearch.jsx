@@ -57,7 +57,6 @@ const HeaderSearch = () => {
             <img src={logo} className='md:w-35 w-28 md:pl-2 cursor-pointer' alt="" />
         </div>
 
-        {/* header search */}
         <div onClick={()=>navigate('/search-page')} className='border-1 border-gray-300 py-2 rounded-sm hidden md:block cursor-pointer'>
             <div className='flex px-2'>
                 <div className='flex border-r-1 border-r-emerald-400 items-center'>

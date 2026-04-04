@@ -38,7 +38,7 @@ const EditAddress = () => {
             if (data.success) {
             toast.success(data.message);
             setopenAuthModel(false);
-            navigate('/address'); // replace with actual route
+            navigate('/address'); 
             } else {
             toast.error(data.message);
             }

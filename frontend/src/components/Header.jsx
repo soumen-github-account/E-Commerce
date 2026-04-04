@@ -21,10 +21,10 @@ const Header = () => {
   const toggleDropdown = (key) => {
     setDropdowns(prev => {
     const newDropdowns = Object.keys(prev).reduce((acc, currKey) => {
-      acc[currKey] = false; // close all dropdowns
+      acc[currKey] = false; 
       return acc;
     }, {});
-    newDropdowns[key] = !prev[key]; // open only the clicked one (or toggle if it's already open)
+    newDropdowns[key] = !prev[key]; 
     return newDropdowns;
   });
   };
@@ -46,7 +46,6 @@ const Header = () => {
 
       <div className='py-3 border-t border-b border-gray-300 px-5 hidden md:block relative'>
         <div className='flex justify-between items-center'>
-          {/* Browse All Categories Button */}
           <button
             className='bg-emerald-600 text-white rounded-sm py-2 px-4 cursor-pointer'
             onClick={() => navigate('/all-catagory')}
@@ -54,7 +53,6 @@ const Header = () => {
             Browse All Categories
           </button>
 
-          {/* Menu Items */}
           <div className='flex'>
             {
             catagoryData.slice(0,5).map(item => (
@@ -76,7 +74,6 @@ const Header = () => {
                   )}
                 </span>
 
-                {/* Mega Menu for Shop */}
                 {
                   dropdowns[item.name] && drop?.name === item.name && (
                   <div className="absolute bg-white shadow-lg w-[65vw] -left-100 p-6 flex z-50">
@@ -97,7 +94,6 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Support Info */}
           <div className='flex items-center px-4 gap-2'>
             <TfiHeadphoneAlt className='text-2xl text-emerald-600' />
             <div>
