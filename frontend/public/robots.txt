@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://e-commerce-frontend-10m4.onrender.com/sitemap.xml
